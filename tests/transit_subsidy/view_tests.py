@@ -1,32 +1,25 @@
 from django.utils.unittest.case import skipIf,skip
 from datetime import datetime
 from django.test import TestCase
-from front.models import OfficeLocation
 from django.contrib.auth.models import User
-from transit_subsidy.models import TransitSubsidy,Mode,TransitSubsidyModes
+from transit_subsidy.models import TransitSubsidy,Mode,TransitSubsidyModes,OfficeLocation
 import StringIO
 import csv
-from front.models import App,Person
+from django.contrib.auth.models import User
 
 
 class TransportationSubsidyViewTest(TestCase):
-    fixtures = ['offices.json','transit_modes.json']
+    fixtures = ['offices.json','transit_modes.json', 'users.json']
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def setUp(self):
         """
         Assumes valid user
         """
-        self.user = User.objects.create_user('test_user','test_user@cfpb.gov','password')
-        is_logged_in = self.client.login(username='test_user',password='password')
-        #guard
-        self.assertTrue(is_logged_in, 'Client not able to login?! Check fixture data or User creation method in setUp.')
-              
+        self.user = User.objects.get(username='ted')
+        is_logged_in = self.client.login(username='ted',password='ted')
+        self.assertTrue(is_logged_in, 'Client not able to login?! Check fixture data or User creation method in setUp.')      
         self.office = OfficeLocation.objects.order_by('city')[0]
-        self.person = Person(user=self.user)
-        self.person.first_name = 'Ted'
-        self.person.last_name = 'Nugent'
-        self.person.save()
 
 
     def tearDown(self):
@@ -44,7 +37,7 @@ class TransportationSubsidyViewTest(TestCase):
 
 
     #Major work to be done with CSV
-    @skip('Changing requirements. Lots to do after initial release')
+    # @skip('Changing requirements. Lots to do after initial release')
     def test_csv_dump_should_work(self):
         self._set_transit_subsidy()
         response = self.client.get('/transit/csv')
@@ -55,7 +48,7 @@ class TransportationSubsidyViewTest(TestCase):
             actual = item  #too tired. end of day. should fix this
             # print item
         self.assertEquals( self.user.email, item['Email'] )
-        self.assertEquals( 164,  int(item['Total Claim Amount']) )
+        self.assertEquals( 125,  int(item['Total Claim Amount']) )
        
 
 
@@ -190,7 +183,7 @@ class TransportationSubsidyViewTest(TestCase):
         transit.number_of_workdays = 20
         transit.daily_roundtrip_cost = 8
         transit.daily_parking_cost = 4
-        transit.amount = 120
+        transit.amount = 125
         transit.total_commute_cost = 160
         transit.dc_wmta_smartrip_id = '123-123-123'
         transit.save()

@@ -1,23 +1,21 @@
 from django.utils.unittest.case import skipIf
 from datetime import datetime
 from django.test import TestCase
-from front.models import OfficeLocation
 from django.contrib.auth.models import User
-from transit_subsidy.models import TransitSubsidy,TransitSubsidyForm
-from front.models import Person
-
+from transit_subsidy.models import TransitSubsidy,TransitSubsidyForm,OfficeLocation
+from django.contrib.auth.models import User
 
 class TransportationSubsidyModelTest(TestCase):
-    fixtures = ['offices.json']
+    fixtures = ['offices.json','users.json'] 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def setUp(self):
         """
         Assumes valid user
         """
-        self.user = User.objects.create_user('test_user','test_user@cfpb.gov','password')
-        is_logged_in = self.client.login(username='test_user',password='password')
-        self.assertTrue(is_logged_in, 'Client not able to login?! Check fixture data or User creation method in setUp.')
+        self.user = User.objects.get(username='jimi')
+        is_logged_in = self.client.login(username='jimi',password='jimi')
+        self.assertTrue(is_logged_in, 'Client not able to login?! Check fixture data or User creation method in setUp.')      
         self.office = OfficeLocation.objects.order_by('city')[0]
 
 
@@ -59,7 +57,7 @@ class TransportationSubsidyModelTest(TestCase):
     def test_unicode_should_return_test_user(self):
         self._set_transit_subsidy()
         trans = TransitSubsidy.objects.filter(user=self.user)[0]
-        actual =  unicode(trans).find('test_user')
+        actual =  unicode(trans).find('jimi')
         self.assertTrue( actual > 0 )
 
 
@@ -78,7 +76,7 @@ class TransportationSubsidyModelTest(TestCase):
         """
         Test unicode to string.
         """
-        expected = 'test_user'
+        expected = 'jimi'
         self._set_transit_subsidy()
         ts = TransitSubsidy.objects.filter(user=self.user)
         actual =  unicode(ts[0].user)
