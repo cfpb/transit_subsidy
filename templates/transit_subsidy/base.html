@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+    <title> Your Intranet > {% block "title" %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/autoSuggest.css" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/reset.css" />
+    <!--[if IE]>
+            <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/ie.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/base_all.css"></style>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/base_print.css"></style>
+    {% block "page_css" %}
+    {% endblock %}
+    {% block "inner_page_css" %}
+    {% endblock %}
+
+</head>
+<body>
+<div id="contain">
+    
+	<div style="clear:both"></div>
+    <div id="body">
+        <div id="main">
+        {% block "header" %}
+        {% endblock %}
+        {% block "content" %}
+        {% endblock %}
+        </div>
+    </div>    
+</div><!--end.contain-->  
+        
+	{% block "inner_page_js" %}
+    {% endblock %}
+
+    {% block "page_js" %}
+    {% endblock %}
+</body>
+</html>

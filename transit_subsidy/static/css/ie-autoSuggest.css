@@ -1,0 +1,85 @@
+UL.as-selections {
+	BORDER-BOTTOM: #ff0000 1px solid; BORDER-LEFT: #aaa 1px solid; PADDING-BOTTOM: 4px; BACKGROUND-COLOR: #fff; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 4px; PADDING-RIGHT: 0px; OVERFLOW: auto; BORDER-TOP: #888 1px solid; BORDER-RIGHT: #aaa 1px solid; PADDING-TOP: 4px; box-shadow: inset 0 1px 2px #888; -webkit-box-shadow: inset 0 1px 2px #888; -moz-box-shadow: inset 0 1px 2px #888;
+}
+
+UL.as-selections LI.as-selection-item {
+	BORDER-BOTTOM: #acc3ec 1px solid; BORDER-LEFT: #acc3ec 1px solid; PADDING-BOTTOM: 2px; BACKGROUND-COLOR: #d87454; PADDING-LEFT: 10px; WIDTH: 190px; PADDING-RIGHT: 7px; FONT-FAMILY: "Lucida Grande", arial, sans-serif; COLOR: #fff; FONT-SIZE: 13px; BORDER-TOP: #c0d9e9 1px solid; BORDER-RIGHT: #acc3ec 1px solid; PADDING-TOP: 2px; box-shadow: 0 1px 1px #e4edf2; -webkit-box-shadow: 0 1px 1px #e4edf2; -moz-box-shadow: 0 1px 1px #e4edf2; text-shadow: 0 1px 1px #fff; border-radius: 12px; -webkit-border-radius: 12px; -moz-border-radius: 12px;
+}
+UL.as-selections LI.as-selection-item:unknown {
+	MARGIN-LEFT: 30px;
+}
+UL.as-selections LI.as-selection-item A.as-close {
+	PADDING-BOTTOM: 0px; MARGIN: 42px 0px 0px 7px; PADDING-LEFT: 0px; PADDING-RIGHT: 10px; FONT-FAMILY: "Helvetica", helvetica, arial, sans-serif; FLOAT: left; COLOR: #fff; FONT-SIZE: 14px; CURSOR: pointer; FONT-WEIGHT: bold; PADDING-TOP: 0px;
+}
+UL.as-selections LI.as-selection-item:hover {
+	BORDER-BOTTOM-COLOR: #6da0e0; BACKGROUND-COLOR: #bbd4f1; BORDER-TOP-COLOR: #8bb7ed; COLOR: #2b3840; BORDER-RIGHT-COLOR: #6da0e0; BORDER-LEFT-COLOR: #6da0e0;
+}
+UL.as-selections LI.as-selection-item:hover A.as-close {
+	COLOR: #fff;
+}
+UL.as-selections LI.selected {
+	BORDER-BOTTOM-COLOR: #1f30e4; BORDER-TOP-COLOR: #1f30e4; BORDER-RIGHT-COLOR: #1f30e4; BORDER-LEFT-COLOR: #1f30e4;
+}
+UL.as-selections LI.as-selection-item A.as-close:hover {
+	COLOR: yellow;
+}
+UL.as-selections LI.as-selection-item A.as-close:active {
+	COLOR: yellow;
+}
+UL.as-selections LI.as-original {
+	MARGIN-LEFT: 0px;
+}
+UL.as-selections LI.as-original INPUT {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; OUTLINE-STYLE: none; OUTLINE-COLOR: invert; OUTLINE-WIDTH: medium; WIDTH: 310px; HEIGHT: 18px; FONT-SIZE: 13px; BORDER-TOP: medium none; BORDER-RIGHT: medium none; PADDING-TOP: 3px;
+}
+UL.as-list {
+	Z-INDEX: 2; POSITION: absolute; PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 2px 0px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: "Lucida Grande", arial, sans-serif; COLOR: #000; FONT-SIZE: 14px; PADDING-TOP: 0px; box-shadow: 0 2px 12px #222; -webkit-box-shadow: 0 2px 12px #222; -moz-box-shadow: 0 2px 12px #222; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;
+}
+LI.as-result-item {
+	BORDER-BOTTOM: #ddd 1px solid; BORDER-LEFT: #fff 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #fff; MARGIN: 0px; PADDING-LEFT: 12px; PADDING-RIGHT: 12px; BORDER-TOP: #fff 1px solid; CURSOR: pointer; BORDER-RIGHT: #fff 1px solid; PADDING-TOP: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px
+}
+LI.as-message {
+	BORDER-BOTTOM: #ddd 1px solid; BORDER-LEFT: #fff 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: transparent; MARGIN: 0px; PADDING-LEFT: 12px; PADDING-RIGHT: 12px; BORDER-TOP: #fff 1px solid; CURSOR: pointer; BORDER-RIGHT: #fff 1px solid; PADDING-TOP: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;
+}
+LI.as-result-item:first-child {
+	MARGIN: 0px;
+}
+LI.as-message {
+	MARGIN: 0px; CURSOR: default;
+}
+LI.active {
+	BORDER-BOTTOM-COLOR: #3342e8; BACKGROUND-COLOR: #3668d9; BORDER-TOP-COLOR: #3342e8; COLOR: #fff; BORDER-RIGHT-COLOR: #3342e8; BORDER-LEFT-COLOR: #3342e8; text-shadow: 0 1px 2px #122042;
+}
+LI.as-result-item EM {
+	PADDING-BOTTOM: 0px; FONT-STYLE: normal; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; BACKGROUND: #444; COLOR: #fff; PADDING-TOP: 0px;
+}
+LI.active EM {
+	BACKGROUND: #253f7a; COLOR: #fff;
+}
+UL.as-selections {
+	BORDER-TOP-WIDTH: 2px;
+}
+UL.as-selections LI.as-selection-item {
+	PADDING-BOTTOM: 3px; PADDING-TOP: 3px;
+}
+UL.as-selections LI.as-selection-item A.as-close {
+	MARGIN-TOP: -1px;
+}
+UL.as-selections LI.as-original INPUT {
+	HEIGHT: 19px;
+}
+UL.as-list {
+	BORDER-BOTTOM: #888 1px solid; BORDER-LEFT: #888 1px solid; BORDER-TOP: #888 1px solid; BORDER-RIGHT: #888 1px solid;
+}
+UL.as-selections LI.as-selection-item A.as-close {
+	MARGIN-TOP: 0px; MARGIN-LEFT: 4px;
+}
+UL.as-list {
+	BORDER-BOTTOM: #888 1px solid; BORDER-LEFT: #888 1px solid; BORDER-TOP: #888 1px solid; BORDER-RIGHT: #888 1px solid;
+}
+UL.as-selections LI.as-selection-item A.as-close {
+	MARGIN-TOP: 0px; MARGIN-LEFT: 4px;
+}
+UL.as-list {
+	BORDER-BOTTOM: #888 1px solid; BORDER-LEFT: #888 1px solid; BORDER-TOP: #888 1px solid; BORDER-RIGHT: #888 1px solid;
+}

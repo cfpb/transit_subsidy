@@ -1,0 +1,21 @@
+  #top_utils {
+    display: none;
+  }
+  
+  #header {
+    display: none;
+  }
+  
+  /* Could this possibly break all H2's? */
+  h2 {display: none;}
+  
+  .team_member {
+    height: 2in;
+    padding-bottom: 0.1875in;
+    margin-bottom: 0.1875in;
+  }
+  
+  .team_member img {
+    width: 1.75in;
+    height: 1.75in;
+  }

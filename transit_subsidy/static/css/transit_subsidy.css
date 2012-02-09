@@ -1,0 +1,237 @@
+body {
+    font-family: Calibri, Arial, sans-serif;
+    font-size: small;
+    color: #333;
+    margin: 0;
+}
+
+
+
+/*~~~~~~~~~~~~~~ overriding HTML 5 stuff in reset.css ~~~~~~~~~~~~~~~~*/
+br {
+  display: block;
+}
+
+table,td {
+  vertical-align:middle;
+}     
+
+/*~~~~~~~~~~~~~~~~~~~~ End reset.css resets ~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+h1 {
+	font-family: Calibri, Arial, sans-serif;
+  font-size:2em;
+}
+
+.show{
+  visibility:visible;
+  display:block;
+}
+
+.hide{
+  visibility:visible;
+  display:none;
+}
+
+#container {
+    /*background: url('/static/images/metro_fisheye.jpg') no-repeat;*/
+}
+
+
+#content {
+   background: rgb(0,0,0);
+   opacity: .8;
+   padding: 8px;
+   filter: alpha(opacity = 65);
+   width:90%; height:96%; margin:30px auto; text-align:left;
+   position:relative;
+}
+
+
+.form_elem {
+    width: 100%;
+    border: 0 ridge #958d84;
+}
+
+.error_msg {
+    color: #cd0a0a;
+    width: 400px;
+    text-align: left;
+}
+
+em.error, td.segment_amount_error {
+    background: url('/static/images/ico_cross_org.gif') no-repeat 0 0;
+    /*background: url('/static/images/icon_redX.png') no-repeat 0 0;*/
+    font-size: small;
+    color: #8b0000;
+    padding-left: 16px;
+}
+
+em.success {
+    /*background: url('/static/images/ico_check_blu.gif') no-repeat 0 0;*/
+    /*background: url('/static/images/greencheck.png') no-repeat 0 0;*/
+    padding-left: 16px;
+}
+
+#success_status {
+    color:green;
+    font-weight: bold;
+    font-size: large;
+}
+
+form span { position: relative; margin: 10px 0;}
+
+form span label {
+    position: absolute;
+    top: 0em; left: 1em;
+    color: #aaaaaa;
+    font-size: medium;
+    font-family: arial,sans-serif;
+    text-align: center;
+}
+
+
+
+input, textarea {
+    padding: 6px;
+    border: 1px solid #dcdcdc;
+    font-size: medium;
+    font-family: Arial,sans-serif;
+    color: #444444;
+}
+
+input[type='radio'] {
+  
+  border: none;
+}
+
+select {
+  margin: 0px 5px 10px 0px;
+  padding:6px;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:1em;/* Resize Font*/
+  width : 500px; /* Resize Width */
+  display : block;
+  text-align:left;
+  /*background: url('bg_select.png') right;*/
+  cursor: pointer;
+  border: 1px solid #dcdcdc;
+  color:#777;
+}
+
+#id_last_four_ssn {
+    width: 52px;    
+    text-align: center;
+}
+#id_origin_street {
+    width: 500px;
+}
+#id_origin_state {
+    width: 80px ;
+}
+
+#id_origin_city {
+    width: 274px ;
+}
+
+#id_origin_zip {
+    width: 111px;
+}
+
+#id_terms_of_service, #id_supervisor_approval {
+    width: 14px;
+}
+
+#id_destination {
+    width: 514px;
+}
+
+
+#about_you_label{
+  color: #ccc;
+  position: relative; 
+  top:0px;
+  left: 0;
+}
+
+#commuting_segments_label {
+  position: relative;
+  top: -6px;
+  color: #ccc;
+}
+
+
+#from_destination_label {
+	position: relative;
+	top: -6px;
+	color: #ccc;
+}
+
+#to_destination_label {
+	position: relative;
+	top: 24px;
+	color: #ccc;
+}
+
+#id_signature {
+	width: 340px;
+}
+
+.seg {
+  
+  width: 300px;
+}
+
+/* quick workaround to shrint text */
+form td {
+ font-size:normal;
+}
+
+.button {
+    border-top: 0px solid #002e03;
+    background: #0c821a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#31bd15), to(#0c821a));
+    background: -webkit-linear-gradient(top, #31bd15, #0c821a);
+    background: -moz-linear-gradient(top, #31bd15, #0c821a);
+    background: -ms-linear-gradient(top, #31bd15, #0c821a);
+    background: -o-linear-gradient(top, #31bd15, #0c821a);
+    padding-top: 10px;
+    padding-bottom: 10px;
+	padding-left: 4em;
+	padding-right: 4em;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 15px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-size: 24px;
+    font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+ }
+
+.button:hover {
+    border-top-color: #229410;
+    background: #229410;
+    color: #fcf7fc;
+}
+
+.button:active {
+    border-top-color: #148f14;
+    background: #148f14;
+}
+
+.no_border {
+    /*border: none;*/
+    background-color: #eaeaea;
+}
+
+#wrapper {
+ padding: 0 0 0 0;
+}
+
+#rm_1 { display: none; }

@@ -1,0 +1,154 @@
+/* base.css */
+a
+{
+	color:#444;
+	-moz-transition:color .1s linear,background-color .1s linear;-ms-transition:color .1s linear,background-color .1s linear;-o-transition:color .1s linear,background-color .1s linear;-webkit-transition:color .1s linear,background-color .1s linear;transition:color .1s linear,background-color .1s linear;text-decoration:none
+}
+
+a:hover,a:focus{
+	color:#000
+}
+
+address cite
+{
+	font-style:normal
+}
+
+#contain{
+	background:#fff;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+.ie6 #contain, .ie7 #contain, .ie8 #contain, .ie9 #contain
+{
+	border-bottom: 1px solid #ccc;
+}
+.green_link
+{
+	font: 1em "Avenir LT W01 85 Heavy",  Verdana;
+	color: #3daf56;
+}
+
+#main_page_search
+{
+	position: relative;
+	background: #EAEAEA url('/static/front/images/cfpb_intranet_logo.png')  no-repeat 37px 25px;
+	padding: 35px 40px 35px 25px;
+	border: solid 1px #EAEAEA;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 0;
+}
+
+.hidden_table
+{
+	width: 100%;
+}
+
+.hidden_table .logo_cell
+{
+	width: 175px;
+}
+
+.hidden_table .search_button_cell
+{
+	width: 26px
+}
+
+
+.rounded-corners
+{
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
+
+a.button_search {
+    background:  url('/static/front/images/search.png') no-repeat scroll center center;
+	background-color: #333;
+    color: #444;
+    display: block;
+    height: 35px;
+    text-decoration: none;
+	width: 36px;
+	float:right;
+}
+
+#search_directory_form p 
+{ 
+	position:relative 
+}
+
+#search_directory_form input 
+{
+	font: 1em "Avenir LT W01 45 Book",  Verdana;
+	width: 90%;
+	border:0px;
+}
+
+/* global footer - navigation and copyright */
+.bg-footer {
+	clear: both;
+	font: 1em "Avenir LT W01 45 Book",  Verdana;
+	margin: 25px 0 40px 25px
+	color: #898989;
+}
+
+
+.bg-copy {
+	margin: 0 0 30px 0;
+	text-align: left;
+	padding: 25px 0 40px 25px;
+	font: 0.9em "Avenir LT W01 45 Book",  Verdana;
+}
+
+@media screen and (min-width: 480px)  {
+	
+	.bg-footer {
+		border: 1px solid #d5d5d5;
+		border-width: 1px 0;
+		padding: 0 0 5px;
+		
+	}
+	
+	.bg-copy {
+		border-top: 1px solid #d5d5d5;
+		clear: both;
+		padding-top: 1em;
+		margin: 0;
+	}
+	
+}
+
+@media screen and (min-width: 480px) and (max-width: 639px), print  {
+	.bg-footer {
+		margin: 2em 10px 4em;
+	}
+}
+
+@media screen and (min-width:620px){
+	#contain{margin:0 auto 10px;width:93.75%}
+	
+}
+
+@media screen and (min-width: 980px){
+	#main_page_search
+	{
+		width: 86.5%;
+	}
+}
+
+@media screen and (min-width: 1200px){
+	#main_page_search
+	{
+		width: 89.5%;
+	}
+}
+
+@media screen and (min-width:1400px){
+	#contain{width:1232px}
+}

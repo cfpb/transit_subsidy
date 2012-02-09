@@ -1,0 +1,220 @@
+{% extends "front/base_v2.html" %}
+
+	{% block "title" %}Transit Subsidy Confirmation{% endblock %}
+	
+	{% block "page_css" %}
+
+    <link type="text/css" href="{{STATIC_URL}}transit_subsidy/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}transit_subsidy/css/colorbox.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}transit_subsidy/css/transit_subsidy.css" rel="stylesheet" />
+	
+
+	{% endblock %}
+	
+	{% block "page_js" %}
+    
+    <script type="text/javascript" src="{{STATIC_URL}}transit_subsidy/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}transit_subsidy/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}transit_subsidy/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}transit_subsidy/js/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}transit_subsidy/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}transit_subsidy/js/jquery.infieldlabel.min.js"></script>
+
+
+    {% endblock %}
+
+
+{% block "header" %}
+{% endblock %}
+
+
+{% block "content" %}
+<style>
+	.confirm_text{
+		color:#444;
+		font-weight: bold;
+		font-size:1.25em;
+	}
+</style>
+<h1 style="color:#aaa;font-size: 3em" align="center">Transit Subsidy Success!</h1>
+
+<div id="wrapper" align="center">
+<div id="container" align="center" style="width:860px;border: 0px dotted #eeeeee">
+
+<div id="success_status">
+        <br/>
+        Your Transportation Subsidy request has been submitted. <br/>
+        Please check your email for a confirmation.
+</div>
+
+    <br/>
+    <table border="0" width="800">
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+        <tr>
+            <td align="right" valign="top">
+             <h1 style="color: #ccc;position: relative; top:-10px;left: 0">About You</h2>
+            </td>
+            <td width="1px">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="left">
+                  <span style="color:#4d9146;font-weight: bolder;font-size:1.5em">{{ user.first_name }} {{ user.last_name }}</span>
+                  <br>
+                  <span class="confirm_text">{{ user.email }}</span><br/><br/>
+             </td>
+            <td></td>
+        </tr>
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+        <tr>
+            <td align="right" valign="top">
+                <h1 style="color:#ccc;position: relative; top: 0px">Commuting From </h2>
+                <h1 style="color:#ccc;position: relative; top: 18px">  To </h2>
+            </td>
+            <td width="20px"></td>
+            <td valign="top" align="left">
+            
+                 <span  class="confirm_text">
+                     {{ form.origin_street }}
+                 </span><br/>
+
+                 <span class="confirm_text">
+                     {{ form.origin_city }}
+                 </span>
+
+                 <span class="confirm_text">
+                     {{ form.origin_state }}
+                 </span>
+
+                 <span class="confirm_text">
+                     {{ form.origin_zip }}
+                 </span>
+
+                 <br/>
+                 <span class="confirm_text" style="position:relative; top: 18px">
+                     {{ form.destination }}
+                 </span>
+            </td>
+            <td></td>
+        </tr>
+         <tr><td colspan="4" height="1" align="center"><br><hr size="1" color="#eaeaea" width="100%"/></td>
+         <tr>
+            <td align="right" valign="top">
+                <h1 style="color:#ccc;position: relative; top: 0px">Commuting Segments</h2>
+            </td>
+            <td width="20px"></td>
+            <td valign="top" align="left">
+                 <p style="padding-bottom:1em;color:#ccc">Daily one-way cost:</p>
+                 
+                 {% for mode in modes %}
+                 <div class="confirm_text">
+                     {{ mode.mode.short_name }} {% if mode.other_mode %}({{mode.other_mode}}) {% endif %} = ${{ mode.cost }} / day each way 
+                 </div>
+                                      
+
+                 {% endfor %}
+            </td>
+            <td></td>
+        </tr>
+
+        <tr><td colspan="4" height="1" align="center"><br><hr size="1" color="#eaeaea" width="100%"/></td>
+        </tr>
+
+        <tr>
+            <td align="right">Days each month you commute to work:</td>
+            <td width="1px"></td>
+            <td align="left">
+                <span class="confirm_text">
+                    {{ form.number_of_workdays }}
+                 </span>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">Cost of one round-trip:</td>
+            <td width="1px"></td>
+            <td align="left">
+                <span class="confirm_text">
+                 ${{ form.daily_roundtrip_cost }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+<!-- 
+         <tr>
+            <td align="right">Cost of daily parking:</td>
+            <td width="1px"></td>
+            <td>
+                <span class="confirm_text">
+                 {% if form.daily_parking_cost != None %}
+                 ${{ form.daily_parking_cost }}
+                 {%endif%}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+ -->
+         <tr>
+            <td align="right">Total commute cost:</td>
+            <td width="1px"></td>
+            <td align="left">
+                <span class="confirm_text">
+                 ${{ form.total_commute_cost }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">Monthly distribution amount:</td>
+            <td width="1px"></td>
+            <td align="left">
+                <span class="confirm_text">
+                 ${{ form.amount }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">Smartrip&copy; card number :</td>
+            <td width="1px"></td>
+            <td align="left">
+                <span class="confirm_text">
+                   {{ form.dc_wmta_smartrip_id }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td width="1px"></td>
+            <td align="left" style="text-align: left;">
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"></td>
+            <td width="1px"></td>
+            <td align="left" style="text-align: left;" width="400px">
+                
+            </td>
+            <td></td>
+        </tr>
+
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+
+
+ </table>
+    If you need to make changes you can 
+     <a href="/transit/">update your transit subsidy request.</a>
+</div>
+
+
+</div>
+
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+{% endblock %}

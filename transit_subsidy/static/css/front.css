@@ -1,0 +1,341 @@
+#body h1 
+{
+    color: #54b947;
+	font: bold 14pt Arial;
+	
+}
+
+#body h2 
+{
+    color: #54b947;
+	font: 14pt Arial;
+}
+
+
+#inner_main
+{
+	width: 980px;
+	padding: 0;
+	margin: 0;
+	border-left: solid 1px #898989;
+	border-right: solid 1px #898989;
+	border-bottom: solid 1px #898989;
+}
+
+/* Column 1 */
+#index_apps
+{
+	background: #fff;
+	width: 180px;
+	vertical-align: top;
+	padding: 0;
+	margin:0;
+	background-image: url("/static/front/images/bck_vline.png");
+	background-repeat: repeat-y;
+	background-position: 151px 0px;
+	height: 100%;
+}
+
+
+#index_applist
+{
+    list-style: none;
+	margin-top: 1em;
+	margin-left: 0;
+	padding-left: 0;
+	font-size: 12px;
+	text-indent: 20px;
+}
+
+#index_applist li
+{
+    padding-top: 10px;
+    width: 100%;
+}
+
+#index_applist li:hover
+{
+    background-image: url("/static/front/images/bck_light_green.png");
+	background-repeat: no-repeat;
+	
+}
+
+#index_applist li.current:hover
+{
+    background: #54b947;
+	
+}
+
+#index_applist a.wide
+{
+    text-decoration: none;
+	color: #898989;
+	display:block;
+}
+
+#index_applist .applist_active
+{
+	background-color: #54b947;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+#index_applist .applist_active a
+{
+	color: #fff;
+}
+
+.hidden_table
+{
+	width: 100%;
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+
+.hidden_table td, .hidden_table tr
+{
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+
+/* Column 2 */
+#index_content
+{
+	background: #fff;
+	width: 450px;
+	margin: 0;
+	padding: 0 20px 0 10px; 
+	vertical-align: top;
+	font-size: 12px;
+}
+
+#index_content ul
+{
+	position: relative;
+	margin-top: 0;
+	padding-left: 1em;
+	margin-left: 0;
+	color: #54b947;
+	list-style-image: url('/static/front/images/dot_green.png'); 
+	list-style-type: none;
+}
+
+#index_content li 
+{
+	width: 100%;
+}
+
+#index_content li.applist_active
+{
+	background: #d8ebd0;
+}
+
+
+/* Column 3 */
+#index_launcher
+{
+	background: #fff;
+	width: 380px;
+	border-left: solid 1px #888;
+	padding: 0;
+	vertical-align: top;
+}
+
+#index_launcher hr
+{
+	margin-left: 5px;
+}
+
+.notification 
+{ 
+	position: relative;
+    padding: 5px 2px 10px 2px;
+    color: #898989;
+    height: 150px;
+	border-bottom: 1px dotted;
+	
+}
+
+
+#notification_header
+{
+	padding: 0;
+	
+}
+
+.clear_bullet{
+	list-style: none;
+	list-style-image: url('/static/front/images/blank.png'); 
+	list-style-type: none;
+}
+
+
+.notification_application 
+{
+    color: #54b947;
+}
+
+.notification_text
+{
+	margin-top: 10px;
+	color: #898989;
+}
+
+.notification_avatar 
+{
+    height: 70px;
+    width: 70px;
+	border: 2px solid #C6C6C6;
+	float: left;
+}
+
+#links_widget
+{
+	padding: 0px 10px 0px 10px;
+}
+
+.notification_date
+{
+	color: #898989;
+}
+
+.right_navigation
+{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.right_navigation ul
+{
+	list-style: none;
+	padding-left: 0;
+	margin-left: 0;
+	text-indent: 10px;	
+}
+
+.right_navigation li
+{
+	margin-top: 15px;
+}
+
+.right_navigation a
+{
+	text-decoration: none;
+	color: #898989;
+	font-weight: bold;
+	font-size: 8pt;
+}
+
+a.button {
+    background:  url('/static/front/images/search.png') no-repeat scroll center center;
+	background-color: #333;
+    color: #444;
+    display: block;
+    height: 38px;
+    text-decoration: none;
+	width: 36px;
+	float:right;
+}
+
+#search_directory_form p 
+{ 
+	position:relative 
+}
+
+#search_directory_form input 
+{
+	font: 10pt verdana, arial, helvetica, sans-serif;
+}
+
+#search_directory_form label  
+{ 
+	position:absolute; 
+	top:8px; 
+	left:5px; 
+	color: #ccc;
+	font: 10pt verdana, arial, helvetica, sans-serif;
+}
+
+.mark_read:hover
+{
+	text-decoration: none;
+}
+
+.mark_read
+{
+	text-decoration: none;
+	display: none;
+}
+
+.mark_read span
+{
+	background: #fff;
+	width: 50px;
+	line-height: 30px;
+	padding: 1px 3px 1px 3px;
+	margin-right: 5px;
+	color: #54b947;
+	border: 1px solid #ccc;
+}
+
+.mark_all:hover
+{
+	text-decoration: none;
+}
+
+.mark_all span
+{
+	background: #fff;
+	width: 50px;
+	line-height: 30px;
+	padding: 1px 3px 1px 3px;
+	margin-right: 5px;
+	color: #54b947;
+	border: 1px solid #ccc;
+}
+
+.arrow
+{
+	position: relative;
+	background:  url('/static/front/images/arrow.png') no-repeat center center;
+	width: 15px;
+	height: 29px;
+}
+
+.menu_title {
+    text-indent: 20px; 
+    width:120px;
+}
+
+#alert_count_b
+{
+	position: relative;
+	width: 28px;
+	text-align: center;
+	background: red;
+	display: block;
+}
+
+
+#indexLauncherSearch {
+	font-size: 8px;
+    border: 0;
+}
+
+.index_launcher_search {
+    width: 340px;
+}
+
+
+#footer
+{
+	background: #fff;
+	width: 980px;
+	padding: 10px;
+	font-size: 10pt;
+	color: #888;	
+}

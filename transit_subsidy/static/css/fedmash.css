@@ -1,0 +1,296 @@
+/*
+   Modifications by The Consumer Financial Protection Bureau
+   March 2011 ver 0.1
+   
+   Copyright 2011 Josh Knowles
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+body {
+	font-family: "Lucida Sans", sans-serif;
+	font-size: 16px;
+	margin: 10px 100px 100px 100px;
+}
+
+p {
+	font-size: 16px;
+}
+
+td p {
+	font-size: 13px;
+	margin: 3px 16px 3px 0px;
+	width: 200px;
+}
+
+table {
+	margin-bottom: 60px;
+}
+
+a {
+	color: #3399FF;
+}
+
+a:visited {
+	color: #3399FF;
+}
+
+.admin {
+	margin: 0 0 0 54%;
+}
+
+#identity {
+	width: 100%;
+	height: 11em;
+	margin: 0px auto;
+}
+
+h1 {
+	font-family: "Lucida Sans", sans-serif;
+	font-size: 8em;
+	letter-spacing: -1px;
+	color: #6FBF4C;
+	text-align: center;
+	margin: 0px;
+
+}
+
+h1 a {
+	color: #4BC1BD;
+	text-decoration: none;
+}
+
+.fed {
+	color: #6FBF4C;
+}
+
+.mash {
+	color: #D87454;
+}
+
+#searchBox{
+	width: 40%;
+	margin: 0px auto;
+}
+
+#primarySearch {
+	font-size: 2em;
+}
+
+#submit {
+	font-size: 1.5em;
+	width: 120px;
+	margin-left: 34%;
+}
+
+#accountUpdate{
+	font-size: 1.2em;
+}
+
+div p input{
+	font-size: 16px;
+}
+
+#mostRecent{
+	width: 50%;
+	color: #4BC1BD;
+}
+
+#tagBrowse{
+	width: 49%;
+	float: left;
+	clear: none;
+}
+
+#staffBrowse{
+	width: 50%;
+	float: right;
+	clear: none;
+}
+
+.label{
+	text-decoration: none;
+}
+
+label{
+	color: #4BC1BD;
+}
+
+#tags0{
+	float: left;
+	clear: left;
+	margin-right: 100px;
+}
+
+#tags1{
+	float: left;
+	clear: none;
+	margin: 30px 100px 0px 0px;
+}
+
+#tagAdd{
+	clear: both;
+	padding-top: 35px;
+}
+
+
+#avatar {
+	float: left;
+	clear: none;
+}
+
+#contactInfo0{
+	float: left;
+	clear: none;
+	margin-left: 1.5em;
+}
+
+#contactInfo1{
+	float: left;
+	clear: none;
+	margin: 30px 0px 0px 30px;
+}
+
+#questions {
+	clear: left;
+	padding: 15px 0px 20px 0px;
+       color: #333333;
+	width: 400px
+
+}
+
+#accountInfo0{
+	width: 49%;
+	clear: none;
+	float: left;
+}
+
+
+#accountInfo1{
+	width: 50%;
+	float: right;
+	margin-top: 150px;
+
+}
+
+#questionInfo0{
+	width: 50%;
+	float: left;
+	clear: both;
+}
+
+#personSearch{
+	font-size: 1.2em;
+}
+
+form input{
+	font-size: 1.2em;
+}
+
+select {
+	font-size: 16px;
+}
+
+#relatedTags {
+	margin-top: 20px;
+	float: left;
+	clear: both;
+}
+
+#matchTags {
+	float: left;
+	clear: both;
+}
+
+.tagee {
+	margin: 0px 20px 20px 0px;
+	float: left;
+	clear: none;
+	color: #4BC1BD;
+}
+
+h2 {
+	margin: 10px 0px 0px 0px;
+	font-size: 24px;
+	font-family: inherit;
+	line-height: 30px;
+	letter-spacing: -1px;
+	color: #FFF;
+}
+
+h2.start {
+	margin: 30px 0px 20px 0px;
+	padding: 10px;
+	font-size: 30px;
+	font-family: inherit;
+	line-height: 30px;
+	letter-spacing: -1px;
+	background: #6FBF4C;
+	opacity: .8;
+	
+}
+
+h2.start a {
+	color: #4BC1BD;
+}
+
+h3 {
+	margin: 0px;
+	font-size: 18px;
+	font-family: "Lucida Sans", sans-serif;
+	line-height: 30px;
+	letter-spacing: -1px;
+	color: #4BC1BD;
+}
+
+#description{
+	clear: both;
+}
+
+p.contact {
+	font-weight: bold;
+	margin-top: 50px;
+	margin-bottom: 100px;
+}
+
+p.contact a {
+	background: #EEEEFF;
+}
+
+img.photo {
+	border: 15px #E7E7E7 solid;
+	margin: 0px 0px 10px 0px;
+}
+
+.tinyPhoto {
+	height: 75px;
+	border: none;
+	vertical-align: middle;
+	padding-right: 1em;
+}
+
+.accountField {
+	margin-bottom: 25px;
+}
+
+.errorlist {
+        list-style: none;
+        color: #D87454;
+        position: relative;
+        top: 40px;
+        left: 450px;
+}
+
+#department {
+    padding-left: 20px;
+}

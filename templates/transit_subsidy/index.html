@@ -1,0 +1,589 @@
+{% extends "transit_subsidy/base.html" %}
+
+	{% block "title" %}Transit Subsidy Request{% endblock %}
+	
+	{% block "page_css" %}
+
+    <link type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/colorbox.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/transit_subsidy.css" rel="stylesheet" />
+	
+	<!-- Position the inField labels so it works with IE -->
+	<!--[if gte IE 7]>
+	<style>
+	form span label {
+	    top: .5em;
+	}
+	
+	.button {
+		padding-left: 1em;
+		padding-right: 1em;
+		border: 1px
+	}
+	
+	</style>
+	
+	<![endif]--> 
+	
+
+	{% endblock %}
+	
+	{% block "page_js" %}
+    
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.infieldlabel.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/transit_subsidy.js"></script>
+
+
+    {% if returning_user %}
+       
+
+    <script>
+        $(document).ready(function(){
+            $('#btn_enroll_smartrip').val('Update');
+            var location_id = $('#id_destination  option:selected').val();
+            var city_abbrev = location_id.substr(0,2);
+            $('#transit_tools').html( '<span style="color: #0c821a;">|</span>&nbsp;&nbsp; Trip planner for: '  + transit_tool_links[city_abbrev] );
+
+            //Remove first one:  segment-type_1, which is empty. Afterwards, create new
+            //ones based on previously entered data.
+            $('#row_1').remove();
+            _idx = 1;
+
+            //Generate dynamic JS from django
+            {% for mode in modes %}
+             //Since we deleted #1 start with #2
+             _idx++;
+             mode_id = {{mode.mode.id}};
+             _cost = {{mode.cost}};
+             add_commuting_segments();
+             $("#segment-type_" + _idx + " option[value='" + mode_id + "']").attr('selected', 'selected');
+             //{{mode.mode.id}},{{mode.mode.short_name}}&mdash;{{mode.mode.locality}}   
+             
+             $("#segment-amount_" + _idx ).val( parseFloat( '{{mode.cost}}' ) );
+             $("#segment-amount_" + _idx ).trigger('focus');
+           
+            {% endfor %}
+           
+           
+           
+
+           $("#id_number_of_workdays").val( function(index,value) {
+                  var rad = $("input[name=work_sked]:radio");
+                  //console.log( rad[3].checked = true ) ;
+                  //console.log(value)
+                  switch ( value ) {  //input[name=work_sked]:radio
+                    case "21": rad[0].checked = true;
+                               break;
+                    case "19": rad[1].checked = true;
+                               break;
+                    case "17": rad[2].checked = true;
+                               break;
+                    default: rad[3].checked = true;
+                               break;
+                  }
+                return value;
+            });
+
+        
+
+
+        });
+    </script>
+    {% endif %}
+
+
+    {% endblock %}
+
+
+{% block "header" %}
+<h1 align="center" style="position:relative;top:-24px;color:green">Transit Subsidy Request</h1>
+{% endblock %}
+
+
+{% block "content" %}
+
+<div id="wrapper" align="center">
+{% if form.errors %}
+{#    In case JavaScript validation fails  #}
+ <div class="error_msg">
+    <h2>Oops! Please correct these form errors.</h4>
+    <ol>
+    {% for field,errors in form.errors.items %}
+        <strong> <em>{{ field|escape }}</em></strong>
+        <span style="color:#333"> {{ errors|escape }} </span>
+    {% endfor %}
+    </ol>
+</div>
+{% endif %}
+
+<div id="container" align="center" style="width:960px;border: 0px dotted #eeeeee;">
+
+<div id="success_status" style="border:;text-align:center">
+{% if returning_user %}
+    <span style="color:#333;">Welcome back, {{ user.first_name }}!</span><br/>
+    <br/>
+    <p style="color:#888;font-weight: normal;font-size: small;text-align:center">Last updated or enrolled on {{ timestamp }}</p>
+{% endif %}
+</div>
+
+
+<form id="frm_smartrip" name="frm_smartrip" action="/transit/" enctype="www-form-encoded" method="POST">
+    <table border="1" width="100%">
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+        <tr>
+            <td align="right" valign="top" width="40%">
+             <h1 id="about_you_label">About you</h2>
+            </td>
+            <td width="10px">&nbsp;&nbsp;</td>
+            <td align="left" valign="top">
+                  
+                  {% if user.first_name == '' and user.email == '' %}
+                  <div id="sparky" style="padding:2em">
+                  <h2 style="font-size:1.25em;color:darkred">Oops!
+                    You'll need to first create a profile in the <br />
+                    <a href="/register">CFPB Staff Directory</a> .  <br />
+                    Please do that and then come back, OK?
+                  </h2>
+                  </div>
+                   <div id="help_wrapper" style="visibility: hidden; display: none"> 
+                  {% else %}
+                  <span style="color:#4d9146;font-weight: bolder;font-size:1.25em">{{ user.first_name }} {{ user.last_name }} </span>
+                  <p>
+                  <span style="color:#222;font-weight: normal;font-size:1em">{{ user.email }}</span>
+                  </p>
+
+                  {% endif %}
+
+                  
+             </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+        <tr>
+            <td align="right" valign="top">
+                <h1 id="from_destination_label"> Commuting from </h1>
+                <h1 id="to_destination_label">  To </h1>
+				<!--[if gte IE 7]>
+				<style>
+				/*#to_destination_label {
+				  	position:relative;
+					top: 60px;
+				}*/
+				</style>
+
+				<![endif]-->
+            </td>
+            <td>&nbsp;</td>
+            <td valign="top" align="left">
+                 <em style="color: #363636;"></em><span  id="id_orig_errors"></span><br/>
+                 <span class="form_elem" style="position:relative;top:2">
+                     <label for="id_origin_street" class="infield"> Street </label>
+                     {{ form.origin_street }}
+                   </span><br/>
+
+                 <span class="form_elem" style="position:relative;top:4;">
+                     <label for="id_origin_city" class="infield"> City </label>
+                     {{ form.origin_city }}
+                 </span>
+
+                 <span class="form_elem" style="position:relative;top:4">
+                     <label for="id_origin_state" class="infield"> State </label>
+                     {{ form.origin_state }}
+                 </span>
+
+                 <span class="form_elem" style="postion:relative;top:4">
+                     <label for="id_origin_zip" class="infield"> Zip </label>
+                     {{ form.origin_zip }}
+                 </span>
+
+                 <br/>
+                 <em style="color: #363636;">&nbsp;</em><span id="id_destination_error"></span>
+                 <span class="form_elem">
+                     <label for="id_destination" class="infield"></label>
+                     {{ form.destination }}
+                 </span>
+                <div id="toolz" style="float: left; position: relative; left:0; top:10;">
+                    <a id="ln_estimate_trip" href="#">Try your route with Google Maps</a>
+                    &nbsp;&nbsp;
+                    <span id="transit_tools" style="float: none"></span>
+                </div>   
+                       
+                <p>&nbsp;</p>
+
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eee" width="100%"/></td></tr>
+
+         <tr>
+            <td align="right" valign="top">
+                <h1 id="commuting_segments_label">Commuting segments</h1>
+            </td>
+            <td>&nbsp;</td>
+            <td align="left">
+             
+                <em style="color: #bbb;"> Select a mode and specify a single <u style="font-weight:bold">ONE-WAY</u> cost.</em>
+                <span id="id_modes_error"></span>
+
+                    <table id="commuting_segments" style="">
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" align="right"> <label>Daily <strong>one-way</strong> total:</label></td>
+                                <td class="totals">
+                                &nbsp;&nbsp;&nbsp;
+                                $ <input id="totals" name="totals" value="0" readonly="false" size='4' style="background-color:#eaeaea" />
+                                </td>
+                                <td class="totals-error"></td>
+                            </tr>
+                        </tfoot>
+                    </table>                
+
+            </td>
+            <td></td>
+        </tr>
+
+       
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+
+        <tr>
+
+            <td align="right"><label for="id_daily_roundtrip_cost">Daily rountrip cost:</label>
+            </td>
+
+            <td width="1px">$</td>
+            <td align="left">
+                 {{ form.daily_roundtrip_cost }}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+        	<td align="right">Your typical work schedule:</td>
+        	<td>&nbsp;</td>
+        	<td>
+              <span id="id_work_sked_error"></span><br/>
+              <label><input type="radio" value="10" name="work_sked" id="id_work_sked"> 10 days per pay period</label><br />
+        	  <label><input type="radio" value="9" name="work_sked"  id="id_work_sked"> 9 days per pay period</label><br />
+        	  <label><input type="radio" value="8" name="work_sked" id="id_work_sked"> 8 days per pay period</label><br />
+        	  <label><input type="radio" value="other" name="work_sked" id="id_work_sked"> Other</label>
+             
+        	</td>
+<!--         	<fieldset><legend></legend></fieldset>
+ -->        </tr>
+
+        <tr>
+            <td align="right"><label for="id_number_of_workdays">Days each month you commute to work:</label></td>
+            <td>&nbsp;</td>
+            <td align="left">
+                <span class="form_elem">
+                   <label for="id_number_of_workdays" class="infield"><!--1 - 31--></label>
+                    {{ form.number_of_workdays }}
+                    </label>
+                </span>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right"><label for="id_total_commute_cost">Total monthly cost of commute:</label></td>
+            <td width="1px">$</td>
+            <td align="left">
+                 {{ form.total_commute_cost }}
+            </td>
+            <td></td>
+        </tr>
+		<!--
+         <tr>
+            <td align="right">Daily parking cost:</td>
+            <td width="1px"> $ </td>
+            <td align="left">
+                <span class="form_elem">
+                <label for="id_daily_parking_cost"> $ </label>
+                 {{ form.daily_parking_cost }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+		-->
+
+        <tr>
+            <td align="right"><label for="id_amount">Allowable monthly amount you will receive (<a href="{{STATIC_URL}}transit_subsidy/Transit_Subsidy_Policy.pdf" target="_blank">$125 max</a>):</label></td>
+            <td width="1px">$</td>
+            <td align="left">
+                 {{ form.amount }}
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="right">Smartrip&copy; card number (<a title="Help with Smartrip card numbers" style="font-weight:bold" id="id_help_smartrip" href="#">?</a>):</td>
+            <td>&nbsp;</td>
+            <td align="left">
+
+            <span class="form_elem" style="position:relative;top:2">
+                  <span class="form_elem">
+                   <label for="id_dc_wmta_smartrip_id" class="infield">DC Metro riders only</label>
+                   {{ form.dc_wmta_smartrip_id }}
+                </span>
+            </td>
+            <td></td>
+        </tr>
+ 		
+		
+        <tr>
+            <td colspan="3" align="center"><br>
+              <strong>This form will be reviewed for approval prior to being processed as specified in the 
+               <a href="{{STATIC_URL}}transit_subsidy/Transit_Subsidy_Policy.pdf" target="_blank">Transit Subsidy Policy</a>
+              .</strong>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr><td colspan="4" height="1" align="center"><hr size="1" color="#eaeaea" width="100%"/></td></tr>
+
+        <tr>
+            <td align="right"></td>
+            <td>&nbsp;</td>
+            <td align="left" style="text-align: left;">
+                <input class="button" type="button" id="btn_enroll_smartrip" value="Enroll" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a style="font-size: smaller;" href="javascript:location.href='/transit'">Reset Form</a>
+            </td>
+            <td></td>
+        </tr>
+	 </table>
+	
+     {% csrf_token %}
+ </form>
+
+  </div>
+</div>
+
+
+
+
+
+        <!-- HTML for Transit Policy -->
+<div style="height: 1px; overflow: hidden;">
+        <div id="tos_wrapper" style="display: none;">
+        <style>
+            p,div {
+                text-align: justify;
+
+            }
+            ul.b , p.tos {padding-left:3em; padding:2em;}
+            li{list-style-type:disc; padding-left:0em;}
+        </style>
+        <div id="tos" align="justify" style="text-align:justify;padding-right:2em">
+            <h1 align="center">Transit Subsidy Program Applicant Agreement Statement</h1>
+            <h4 style="color: #A60000;text-align:center;font-weight:bold">Scroll to the bottom to sign the form.</h4>
+            <p>&nbsp;</p>
+                <h3>I HEREBY CERTIFY THAT</h3>
+                <ul class="b">
+                <li>I WORK FOR THE CONSUMER FINANCIAL PROTECTION BUREAU AND
+                AM NOT LISTED AS A MEMBER OF A FEDERAL COMMUTER VANPOOL
+                OR CARPOOL.</li><br/>
+
+                <li>I AM NOT THE HOLDER OR BENEFICIARY OF ANY OTHER FORM OF
+                WORKPLACE MOTOR VEHICLE PARKING PERMIT, AND I AM NOT
+                RECEIVING TRANSPORTATION BENEFITS FROM ANOTHER FEDERAL
+                OREGANIZATION.</li><br/>
+
+                <li>I AM ELIGIBLE FOR A TRANSPORATION SUBSIDY BENEFIT FOR USE ON
+                A PARTICPATING PUBLIC TRANSPORTATION SYSTEM, AM OBTAINING
+                THE SUBSIDY FOR MY PERSONAL COMMUTING USE, AND WILL NOT
+                TRANSFER THE BENEFIT TO ANYONE ELSE.</li><br/>
+
+                <li>I HAVE ACCURATELY LISTED THE COMMUTING COST TO AND FROM
+                MY HOME TO WORK USING PUBLIC TRANSPORTATION.</li><br/>
+
+                <li>I ACKNOWLEDGE THAT IT IS MY RESPONSIBILITY TO RETURN ANY
+                UNUSED TRANSPORTATION SUBSIDY (E.G., SUBSIDY UNUSED DUE TO
+                LEAVE TAKEN OR SEPARATION).</li><br/>
+
+                <li>I UNDERSTAND THAT IT IS MY RESPONSIBILITY TO REPORT ANY
+                CHANGE OF ADDRESS OR ABSENCES THAT MAY AFFECT MY TRANSIT
+                BENEFITS.</li>
+                </ul>
+            
+                <p class="tos">
+                THIS CERTIFICATION CONCERNS A MATTER WITHIN THE JURISDICTION OF
+                AN AGENCY OF THE UNITED STATES AND MAKING A FALSE, FICTITIOUS, OR
+                FRAUDULENT CERTIFICATION MAY RENDER THE MAKER SUBJECT TO CRIMINAL
+                PROSECUTION UNDER TITLE 18, UNITED STATES CODE, SECTION 1001, CIVIL
+                PENALTY ACTION PROVIDING FOR ADMINISTRARTIVE RECOVERIES OF UP TO
+                $5000 PER VIOLATION, AND/OR DISCPILINARY ACTION UP TO AND INCLUDING
+                TERMINATION OF EMPLOYMENT
+                </p>
+              
+                <p class="tos">
+                <u>Privacy Act Notice:</u> The Bureau is soliciting this information in connection with its employee
+                transit benefit program. This information is solicited under authority of 5 U.S.C., Sections 301
+                and 7905. Furnishing the information on this form is voluntary, but failure to do so may result in
+                disapproval of your request for a public transit subsidy benefit. The purpose of this information
+                is to facilitate timely processing of your request, to ensure your eligibility, and to prevent misuse
+                of the funds involved. This information will be matched with lists at other Federal agencies to
+                ensure that you are not listed as a carpool or vanpool participant or a holder of any other form of
+                vehicle work site parking permit with CFPB or any other Federal agency. </p>
+            <p>&nbsp;</p>
+
+            <div align="center" style="padding-left:20px">
+                <fieldset style="border:1px ridge #eaeaea;padding: 2em;width:85%;text-align:left">
+                    <legend style="font-weight:bold;padding:4px;"> Complete enrollment by signing this form: </legend>
+
+                    <p style="margin-bottom: 0.5em;">
+                    <label for="id_last_four_ssn">Last 4 digits of your SSN:</label>
+                    <!-- Don't use django here because we don't want it to auto-populate -->
+                         <input id="id_last_four_ssn" type="text" name="last_four_ssn" maxlength="4" />
+                        
+                   
+                    </p>
+
+                    <p style="margin-bottom: 0.5em;">
+                    
+                    <label for="id_person_name">Enter your name:</label>
+                         <!-- Don't use django here because we don't want it to auto-populate -->
+                         <input id="id_signature" type="text" name="signature" maxlength="56" />
+                   
+                    </p>
+                    
+                    <p>
+                        <input class="_button" type="submit" id="btn_agree" value="I agree" />&nbsp;
+
+                        <input type="button" id="btn_no_agree" name="btn_no_agree" value="I do not agree" onClick="$.colorbox.close()" />
+                        
+                    </p>
+                </fieldset>
+            </div>
+           <p>&nbsp;</p>
+        </div>
+    </div>
+
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+ Template String.  {0} is replaced when built. Select options are also inserted at runtime 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<textarea style="display:none" id="template">
+    <tr id="row_{0}" class="segment_row">
+        <td>&nbsp;</td>
+        <td class='type' valign="top" style="padding-top:9px">
+            <label for="segment-type_{0}"><label>
+            <select name="segment-type_{0}" id="segment-type_{0}" class="seg">
+                <option value="">Select Mode of Transportation...</option>
+            </select>
+            <input type="text" name="segment-other_{0}" id="segment-other_{0}" class="hide other" title="Type the name of the transportation." style="width:284px">
+        </td>
+        <td valign="top">
+            &nbsp; &nbsp;
+            <label for="segment-amount_{0}"> $ <label>
+            <input size='4' class="segment_amount" id="segment-amount_{0}" name="segment-amount_{0}"/>
+        </td>
+        <td>  &nbsp; <a href="#" class="add" id="add_{0}">add</a>  &nbsp;|&nbsp; <a href="#" id="rm_{0}" class="rm">remove</a> </td>
+    </tr>
+    <tr id="subrow_{0}">
+      <td colspan="4">
+       <span id="segment-amount_{0}_error"></span>
+      </td>
+    </tr>
+</textarea>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+                                    End  Template
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->  
+
+
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Text for modal dialogs.  Could also be external HTML, but needs to be on same domain.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- HTML for Transit Tools -->
+<div id="id_transit_tool_wrapper" style="visibility: hidden;display: none">
+    <h1>Transit Tools</h1>
+    <p>
+    You can use Google to help plan your commute!  Enter your home address,
+    select your work location, and then click here: <a id="ln_estimate_trip" href="#">Route With Google Transit</a>
+
+    <br><br>
+    If you want to estimate the cost of your commute, select your work location above and click here:
+
+    <div id="transit_tools"></div>
+    </p>
+</div>
+
+
+<!-- HTML For Help-->
+<div id="example_wrapper" style="visibility: hidden; display: none">
+<div id="id_examples">
+    <h1 align="center">Route Examples</h1>
+    <p style="font-size:1.25em;">&#x300b; Alexandria Dash Bus to Braddock Metro to Farragut West</p>
+    
+    <p style="font-size:1.25em">&#x300b; Eerie Bus from Ellicot City to 18th St and M St NW</p>
+    
+   <p>&nbsp;</p><br>
+</div>
+</div>
+
+
+<!-- HTML For Help-->
+<div id="help_wrapper" style="visibility: hidden; display: none">
+<div id=id_help>
+    <h1 align="center">Instructions</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+        ea <b> consequat</b>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+        deserunt mollit anim id est laborum.<br>
+
+    </p>
+   <p>&nbsp;</p><br>
+  
+    <div align="center" style="text-align:bottom"><a href="#">Ask a question</a></div>
+</div>
+</div>
+
+
+
+<!-- HTML For Help-->
+<div id="help_for_smartrip_card" style="visibility: hidden; display: none">
+<div id=id_help>
+    <h1 align="center">Smartrip&copy; Serial Number Types</h1>
+    <p align="center" > <hr size="1" width="100%" /></p>
+    <div>
+        <p align="center">
+            <h3>Card type #1</h3><br/>
+            <img valign-"absmiddle" src="{{STATIC_URL}}/images/card_type1_cut.jpg">
+        </p>
+        <p align="center" > <hr size="1" width="100%" /></p>
+        <p>
+            <h3>Card type #2</h3><br/>
+            <img valign-"absmiddle" src="{{STATIC_URL}}/images/card_type2_cut.jpg">
+        </p>
+        <p align="center" > <hr size="1" width="100%" /></p>
+        <p>
+            <h3>Card type #3</h3><br/>
+            <img valign-"absmiddle" src="{{STATIC_URL}} /images/card_type3_cut.jpg">
+        </p>        
+    </div>
+   <p>&nbsp;</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+{% endblock %}
+

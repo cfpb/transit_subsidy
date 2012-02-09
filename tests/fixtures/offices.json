@@ -1,0 +1,79 @@
+[
+    {
+        "pk": "CH200", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "IL", 
+            "street": "200 East Randolph Street", 
+            "zip": "60601", 
+            "city": "Chicago"
+        }
+    }, 
+    {
+        "pk": "DC1700", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "DC", 
+            "street": "1700 G Street NW", 
+            "zip": "20552", 
+            "city": "Washington"
+        }
+    }, 
+    {
+        "pk": "DC1750", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "DC", 
+            "street": "1750 Pennsylvania Avenue", 
+            "zip": "20006", 
+            "city": "Washington"
+        }
+    }, 
+    {
+        "pk": "DC1800", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "DC", 
+            "street": "1801 L Street NW", 
+            "zip": "20036", 
+            "city": "Washington"
+        }
+    }, 
+    {
+        "pk": "DC820", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "DC", 
+            "street": "820 First Street NE", 
+            "zip": "20002", 
+            "city": "Washington"
+        }
+    }, 
+    {
+        "pk": "NY330", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "NY", 
+            "street": "330 Madison Avenue", 
+            "zip": "10017", 
+            "city": "New York"
+        }
+    }, 
+    {
+        "pk": "SF4", 
+        "model": "transit_subsidy.officelocation", 
+        "fields": {
+            "suite": "", 
+            "state": "CA", 
+            "street": "Four Embarcadero Center", 
+            "zip": "94111", 
+            "city": "San Francisco"
+        }
+    }
+]

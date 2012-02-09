@@ -1,0 +1,183 @@
+html
+{
+   height: 100%;
+}
+
+body {
+    font-family: "Avenir LT W01 45 Book", Verdana;
+    margin: 0 0 100px 0;      
+    height: 100%; 
+    
+}
+
+b,strong,h1,h2,h3,h4,h5,h6 
+{
+	font-family: "Avenir LT W01 85 Heavy", Verdana;
+}
+
+a {
+    color:#52B948;
+    text-decoration:none;
+}
+
+a:hover 
+{
+    text-decoration:underline;
+}
+
+
+.clear 
+{ 
+    overflow: hidden;
+    width: 100%;
+    clear:both;
+    padding: 0; 
+    height: 1px;
+}
+
+#top_utils 
+{
+	font-size: 1em;
+    padding-top: 0px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 50px;
+
+}
+
+#top_left 
+{
+	position: relative;
+	float: left;
+	background: #EAEAEA;
+	height: 30px;
+	width: 66%;
+	padding: 0 0 1px 0;
+}
+
+
+#top_left a
+{
+    text-decoration: none;
+    color: #333;
+}
+
+#top_left p
+{
+	font-size: 0.9em;
+    margin: 5px 0 0 15px;
+}
+
+#top_right 
+{
+	position: relative; 
+	z-index:3000;
+	float: left;
+	text-indent: 10px;
+	color: #fff;
+	width: 34%;
+	padding: 0 0 1px 0;
+	height: 30px;
+}
+  
+#notification_panel
+{
+	position: relative;
+	background: #3daf56;
+	text-indent: 10px;
+	color: #fff;
+	width: 100%;
+	cursor: pointer;	
+ 	float: right;	
+	z-index:10000;
+}
+
+.e6 #top_right, .ie7 #top_right, .ie8 #top_right, .ie9 #top_right
+{
+	position:relative; 
+	z-index:10000;
+}
+
+		
+#notification_panel h1
+{
+	font-size: 1em;
+	font-weight: normal;
+    padding: 0;
+	margin: 4px 0 5px 0;	
+}	
+
+#notification_panel_list
+{
+	display: none;
+	padding: 0 10px 5px 10px;
+	z-index: 100;
+}
+
+#notification_panel_list a
+{
+	color: #fff;
+}
+
+#notification_panel_list ul
+{
+	text-indent: 0;
+	margin-left: 25px;
+}
+
+
+.left
+{
+	float: left;
+}
+
+.right
+{
+	float: right;
+}
+
+
+a.alert
+{
+	text-decoration: none;
+}
+
+#alert_icon
+{
+	background: url('/static/front/images/envelope.png') no-repeat scroll top right;
+	color: #fff;
+    display: block;
+	margin: 8px 5px 2px 0;
+    height: 20px;
+	width: 30px;
+}
+
+.alert_count
+{
+	position: relative;
+	background-color: red;
+	padding: 1px;
+	top: -5px;
+	left: -15px;
+	display: block;
+	width: 28px;	
+}
+
+        
+#body 
+{
+	margin: 0px;
+	border: 0;
+	width: 960px;
+	margin: 0 auto;
+	height: 90%;
+}
+
+#main 
+{
+	margin: 50px 0 0 0;
+	height: 100%;
+}
+
+

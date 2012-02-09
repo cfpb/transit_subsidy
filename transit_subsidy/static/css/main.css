@@ -1,0 +1,351 @@
+.my-links
+{
+	background:  url('/static/front/images/cfpb_intranet_home_link.png') no-repeat scroll top left;
+	text-indent: 40px;
+	height: 30px;
+	
+}
+
+#frequently-used-bg
+{
+	background: url('/static/front/images/hdotted-line.png') no-repeat 130px 10px;
+}
+
+#category-bg
+{
+	background: url('/static/front/images/hdotted-line.png') no-repeat 75px 10px;
+}
+
+.column1 h1
+{
+	font: 1em "Avenir LT W01 85 Heavy", Verdana;
+	color: #3daf56;
+	margin: 20px 0 0 0;
+}
+
+.nav_links .main_nav_icons
+{
+	text-decoration: none;
+	font-size: 0.7em;
+	vertical-align: bottom;
+	float: left;
+	margin: 0 15px 20px 5px;
+	width: 110px;
+}
+
+.nav_links .main_nav_icons .icon
+{
+	width: 100px;
+	height: 100px;
+	margin: 0 5px 0 5px;
+	float: left;
+}
+
+#staff_directory_button
+{
+	background: url('/static/front/images/staffDir.png');
+}
+
+#cfpbedia_button
+{
+	background: url('/static/front/images/cfpbedia.png');
+}
+
+.table-contents-header
+{
+	font: 1em "Avenir LT W01 85 Heavy", Verdana;
+	color: #464646;
+	background:  url('/static/front/images/cfpb_intranet_home_books.png') no-repeat; 
+	text-indent: 40px;
+	height: 40px;
+	clear: both;
+	margin-left: 15px;
+}
+
+.table-contents
+{
+	font: 0.8em "Avenir LT W01 85 Book",  Verdana;
+	color: #464646;
+}
+
+.table-contents ul
+{
+	padding: 10px;
+}
+
+.table-contents li
+{
+	padding: 5px;
+}
+
+.nav_links h1
+{
+	font: 0.8em "Avenir LT W01 85 Heavy",  Verdana;
+	color: #3daf56;
+	text-transform:uppercase;
+	margin: 0 0 10px 10px;
+}
+
+.nav_links h2
+{
+	font: 0.7em "Avenir LT W01 85 Heavy",  Verdana;
+	color: #898989;
+	margin: 0 0 10px 10px;
+}
+
+.nav_links ul
+{
+	font: 0.8em "Avenir LT W01 85 Book",  Verdana;
+	padding: 5px;
+	margin: 0 0 10px 0;
+	
+}
+
+.nav_links li
+{
+	padding: 5px;
+}
+
+.nav_links li a
+{
+	color: #464646;
+}
+
+.column3 h2
+{
+	font: 0.9em "Avenir LT W01 85 Heavy",  Verdana;
+	color: #898989;
+}
+
+.column3 h3
+{
+	font: 0.9em "Avenir LT W01 85 Heavy",  Verdana;
+	color: #464646;
+
+}
+
+.column3 .news_title
+{
+	font: 1em "Avenir LT W01 85 Heavy",  Verdana;
+	color: #3daf56;
+	margin: 0 0 10px 0;
+	background:  url('/static/front/images/cfpb_intranet_home_calendar.png') no-repeat; 
+	text-indent: 50px;
+	height: 40px;
+	
+}
+
+.column3 .recent_news
+{
+	font: 0.8em "Avenir LT W01 85 Book",  Verdana;
+	margin: 3px 0 20px 0;
+	color: #464646;
+}
+
+.column3 .recent_news p
+{
+	margin: 10px 0 10px 0;
+	
+}
+
+/* New Article Dialog */
+
+#new_article_dialog
+{
+	display:none;
+}
+
+#new_article_dialog label
+{
+	position:relative; 
+	float: left
+}
+
+#new_article_dialog #article_name
+{
+	float:left; 
+	height: 28px;
+}
+
+#new_article_dialog a
+{
+	background: #333 url('/static/front/images/search.png') no-repeat scroll center center; 
+	width:35px; 
+	height:35px; 
+	float:left
+}
+
+#new_article_dialog #similar_articles
+{
+	display: none; 
+	clear: both;
+}
+
+#new_article_dialog #similar_articles p, #new_article_dialog #nosimilar_articles p
+{
+	margin: 10px 0 5px 0px;
+}
+
+#new_article_dialog #similar_articles_results 
+{
+	margin: 10px 0 5px 10px;
+	font-size: 1em;
+	color: #898989;
+	list-style-position: outside;
+	list-style-type: square;
+}
+
+
+#new_article_dialog #nosimilar_articles
+{
+	display: none; 
+	clear: both;
+}
+
+.mobile_navigation_links
+{
+	display: none;
+	clear:both;
+}
+
+@media screen and (min-width: 380px) and (max-width: 620px){
+	#main {
+		clear: both;
+		position: relative;
+		margin: 10px 10px 25px;
+	}
+	
+	#top_left {
+		display: none;
+		width: 0px;
+	}
+	
+	#top_right {
+		float: left;
+		text-indent: 10px;
+		color: #fff;
+		width: 100%;
+		padding: 0 0 1px 0;
+		height: 25px;
+	}
+	
+	.column1 {
+		display: none;				
+		
+	}
+	
+	.column2-3 {
+		width: 100%;				
+		float: right;
+		
+	}
+	
+	.column2 {
+		width: 100%;
+		float: left;
+	}
+	
+	.column3 {
+		width: 100%;			
+		padding: 15px;
+		float: left;
+	}
+	
+	#main_page_search
+	{
+		position: relative;
+		background: #EAEAEA url('/static/front/images/cfpb_intranet_logo.png')  no-repeat 25px 10px;
+		padding: 85px 10px 15px 15px;
+		border: solid 1px #EAEAEA;
+		width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+		z-index: 0;
+	}
+
+	.hidden_table
+	{
+		width: 100%;
+	}
+
+	.hidden_table .logo_cell
+	{
+		width: 0px;
+	}
+
+	.hidden_table .search_button_cell
+	{
+		width: 26px
+	}
+	
+	.mobile_navigation_links
+	{
+		display: block;
+		clear:both;
+		width: 100%;			
+		padding: 15px;
+		float: left;
+	}
+	
+	.mobile_navigation_links h1
+	{
+		font: 0.9em "Avenir LT W01 85 Heavy",  Verdana;
+		color: #3daf56;
+		text-transform:uppercase;
+		
+	}
+
+	.mobile_navigation_links h2
+	{
+		font: 0.7em "Avenir LT W01 85 Heavy",  Verdana;
+		color: #898989;
+	
+	}
+
+	.mobile_navigation_links ul
+	{
+		font: 0.8em "Avenir LT W01 85 Book",  Verdana;
+		padding: 5px;
+		
+
+	}
+	
+}
+
+
+@media screen and (max-device-width: 810px) {
+	* { -webkit-text-size-adjust: 100%; }
+}
+
+@media screen and (min-width: 810px) {
+	
+	.column1 {
+		width: 20%;				
+		float: left;
+		padding: 0 25px 0 25px;
+	}
+	
+	.column2-3 {
+		width: 74%;				
+		float: right;
+		border-left: 1px solid #ccc;
+	}
+	
+	
+	.column2 {
+		width: 50%;		
+		padding: 0 25px 0 25px;
+		float: left;
+	}
+	
+	.column3 {
+		width: 34%;				
+		padding: 0 25px 25px 25px;
+		float: right;
+		border-left: 1px solid #ccc;
+	}
+	
+	
+		
+}
+
