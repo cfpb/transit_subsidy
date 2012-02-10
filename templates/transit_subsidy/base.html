@@ -8,6 +8,28 @@
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/base_all.css"></style>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/base_print.css"></style>
+    <link type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/colorbox.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/transit_subsidy.css" rel="stylesheet" />
+    <!-- Position the inField labels so it works with IE -->
+    <!--[if gte IE 7]>
+    <style>
+    form span label {
+        top: .5em;
+    }
+    
+    .button {
+        padding-left: 1em;
+        padding-right: 1em;
+        border: 1px
+    }
+    
+    </style>
+    
+    <![endif]--> 
+    
+
+
     {% block "page_css" %}
     {% endblock %}
     {% block "inner_page_css" %}
@@ -15,8 +37,18 @@
 
 </head>
 <body>
-<div id="contain">
-    
+ 
+
+ <!-- Navigation for demo Transit Subsidy app -->
+<div style="float: right;padding-right:2em">
+    <span class="demo_title" title="Change this in the base.html template">Demo navigation:</span> &nbsp;&nbsp;&nbsp;
+    <a href="/admin">Django Admin</a>  &nbsp;<span  class="">|</span>&nbsp;
+    <a href="/logout">Logout</a>
+</div>
+<!-- End navigation -->
+
+
+<div id="contain">   
 	<div style="clear:both"></div>
     <div id="body">
         <div id="main">

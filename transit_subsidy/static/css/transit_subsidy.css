@@ -235,3 +235,8 @@ form td {
 }
 
 #rm_1 { display: none; }
+
+.demo_title{
+  color:#a8a8a8;
+  font-weight:bold
+}

@@ -1,5 +1,5 @@
 from django.contrib  import admin
-from transit_subsidy.models import TransitSubsidy,Mode,TransitSubsidyModes
+from transit_subsidy.models import TransitSubsidy,Mode,TransitSubsidyModes,OfficeLocation
 
 class TransitSubsidyAdmin(admin.ModelAdmin):
     list_display = ('user', 'destination','date_enrolled','timestamp')
@@ -24,3 +24,4 @@ class TransitModesAdmin(admin.ModelAdmin):
 admin.site.register(TransitSubsidy,TransitSubsidyAdmin)
 admin.site.register(Mode,ModeAdmin)
 admin.site.register(TransitSubsidyModes)
+admin.site.register(OfficeLocation)
