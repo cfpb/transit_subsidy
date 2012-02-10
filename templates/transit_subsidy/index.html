@@ -8,27 +8,10 @@
     <link type="text/css" href="{{STATIC_URL}}css/colorbox.css" rel="stylesheet" />
     <link type="text/css" href="{{STATIC_URL}}css/transit_subsidy.css" rel="stylesheet" />
 	
-	<!-- Position the inField labels so it works with IE -->
-	<!--[if gte IE 7]>
-	<style>
-	form span label {
-	    top: .5em;
-	}
-	
-	.button {
-		padding-left: 1em;
-		padding-right: 1em;
-		border: 1px
-	}
-	
-	</style>
-	
-	<![endif]--> 
-	
-
 	{% endblock %}
 	
 	{% block "page_js" %}
+
     
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js"></script>
@@ -146,7 +129,7 @@
                   <div id="sparky" style="padding:2em">
                   <h2 style="font-size:1.25em;color:darkred">Oops!
                     You'll need to first create a profile in the <br />
-                    <a href="/register">CFPB Staff Directory</a> .  <br />
+                    <a href="/register">Staff Directory</a> .  <br />
                     Please do that and then come back, OK?
                   </h2>
                   </div>
@@ -385,7 +368,7 @@
             <p>&nbsp;</p>
                 <h3>I HEREBY CERTIFY THAT</h3>
                 <ul class="b">
-                <li>I WORK FOR THE CONSUMER FINANCIAL PROTECTION BUREAU AND
+                <li>I WORK FOR THE ORGANIZATION AND
                 AM NOT LISTED AS A MEMBER OF A FEDERAL COMMUTER VANPOOL
                 OR CARPOOL.</li><br/>
 
@@ -422,14 +405,14 @@
                 </p>
               
                 <p class="tos">
-                <u>Privacy Act Notice:</u> The Bureau is soliciting this information in connection with its employee
+                <u>Privacy Act Notice:</u> The Orgaonization is soliciting this information in connection with its employee
                 transit benefit program. This information is solicited under authority of 5 U.S.C., Sections 301
                 and 7905. Furnishing the information on this form is voluntary, but failure to do so may result in
                 disapproval of your request for a public transit subsidy benefit. The purpose of this information
                 is to facilitate timely processing of your request, to ensure your eligibility, and to prevent misuse
                 of the funds involved. This information will be matched with lists at other Federal agencies to
                 ensure that you are not listed as a carpool or vanpool participant or a holder of any other form of
-                vehicle work site parking permit with CFPB or any other Federal agency. </p>
+                vehicle work site parking permit. </p>
             <p>&nbsp;</p>
 
             <div align="center" style="padding-left:20px">
@@ -572,7 +555,7 @@
         <p align="center" > <hr size="1" width="100%" /></p>
         <p>
             <h3>Card type #3</h3><br/>
-            <img valign-"absmiddle" src="{{STATIC_URL}} /images/card_type3_cut.jpg">
+            <img valign-"absmiddle" src="{{STATIC_URL}}/images/card_type3_cut.jpg">
         </p>        
     </div>
    <p>&nbsp;</p>

@@ -148,12 +148,12 @@ class  TransitSubsidyForm(ModelForm):
         return days
 
     def clean_amount(self):
-        """ $120 max"""
+        """ $125 max"""
         amt = self.cleaned_data['amount']
         if amt > MAX_CLAIM:
             raise forms.ValidationError('The most you can request is $%s.' % MAX_CLAIM )
         if amt < 1:
-            raise forms.ValidationError('Really? That looks to be 0 or less.')
+            raise forms.ValidationError('Really?! That looks to be 0 or less.')
         return amt
 
     

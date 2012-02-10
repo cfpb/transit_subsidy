@@ -70,7 +70,7 @@ AUTHENTICATION_BACKENDS = (
 
 ROOT_URLCONF = 'urls'
 
-AUTH_PROFILE_MODULE = 'front.Person'
+# AUTH_PROFILE_MODULE = 'front.Person'
 
 LOGIN_URL = '/login/'
 

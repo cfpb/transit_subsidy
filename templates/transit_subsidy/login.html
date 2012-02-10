@@ -1,1 +1,39 @@
-asd
+
+{% extends "transit_subsidy/base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+
+    {% block "content" %}
+       <style>
+        label {padding-right:1em}
+       </style>
+        <h1>Intranet Login</h1>
+        <hr />
+        
+        <span class="demo_title">Login with one of these demo accounts: Demo users (username/pwd):</span> <code style="font-size:1.25em">admin/admin, ted/ted, patti/patti, jimi/jimi</code>
+        <br><br>
+    
+        <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+        </table>
+
+        <input type="submit" value="login" id="btn_login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+
+    {% endblock %}
+
+{% endblock %}
