@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 import os,io,json
 import nose
+from TransitSubsidyApp import TransitSubsidyApp
 
 
 
@@ -29,6 +30,7 @@ logger.addHandler(ch)
 
 
 driver = None
+transit = None
 base_url = os.environ['site_under_test']
 
 logger.info( 'Contacting hub at: %s' % os.environ['selenium_hub'] )
