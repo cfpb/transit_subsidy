@@ -19,28 +19,38 @@ base_url = "http://localhost:8000"
 
 
 def first():
-    driver.get(base_url + "/login")
+    pass
+    # driver.get(base_url + "/login")
 
 def last():
     driver.get(base_url + "/logout")
     # driver.find_element_by_link_text('Reset Form').click()
 
 
-#Patti Smith registers Or Updates
-@with_setup(first,last)
-def test_end2end_PattiSmith_OnTheBus():
+
+def login_person(name):
     driver.get(base_url + "/login/")
     eq_("Your Intranet >", driver.title)
 
     driver.find_element_by_id("id_username").clear()
-    driver.find_element_by_id("id_username").send_keys("patti")
+    driver.find_element_by_id("id_username").send_keys(name)
     driver.find_element_by_id("id_password").clear()
-    driver.find_element_by_id("id_password").send_keys("patti")
+    driver.find_element_by_id("id_password").send_keys(name)
     driver.find_element_by_id("btn_login").click()
     eq_("Your Intranet > Transit Subsidy Request", driver.title)
 
+
+
+
+#Patti Smith registers Or Updates
+@with_setup(first,last)
+def test_end2end_PattiSmith_OnTheBus():
+    
+    login_person('patti')
+
     driver.find_element_by_id("id_origin_street").clear()
     driver.find_element_by_id("id_origin_street").send_keys("123 Main St")
+    
     driver.find_element_by_id("id_origin_city").clear()
     driver.find_element_by_id("id_origin_city").send_keys("Anytown")
     driver.find_element_by_id("id_origin_state").clear()
@@ -87,13 +97,7 @@ def test_end2end_PattiSmith_OnTheBus():
 #Ted (who does not have a claim) tries to register without entering any fields   
 @with_setup(first,last)
 def test_form_validation():
-    driver.find_element_by_id("id_username").clear()
-    driver.find_element_by_id("id_username").send_keys("ted")
-    driver.find_element_by_id("id_password").clear()
-    driver.find_element_by_id("id_password").send_keys("ted")
-    driver.find_element_by_id("btn_login").click()
-    eq_("Your Intranet > Transit Subsidy Request", driver.title)
-
+    login_person('ted')
 
     driver.get(base_url + '/transit')
     driver.find_element_by_id('btn_enroll_smartrip').click()
@@ -105,27 +109,23 @@ def test_form_validation():
                 'Specify commuting segments, costs, and work schedule', 
                 'We need your home address (Street, City, State, Zip)']
     
+   
+    def valididate_messages(message):
+        is_textpresent(driver, message)
+   
+
     for m in messages:
-        yield valididate_messages , driver, m
+        yield valididate_messages , m
     
  
-def valididate_messages(driver,message):
-    is_textpresent(driver, message)
-   
+    
 
 
 
 @with_setup(first,last)
 def test_end2end_TedNugent_Cancels_at_last_minute():
-    driver.get(base_url + "/login/")
-    eq_("Your Intranet >", driver.title)
-
-    driver.find_element_by_id("id_username").clear()
-    driver.find_element_by_id("id_username").send_keys("ted")
-    driver.find_element_by_id("id_password").clear()
-    driver.find_element_by_id("id_password").send_keys("ted")
-    driver.find_element_by_id("btn_login").click()
-    eq_("Your Intranet > Transit Subsidy Request", driver.title)
+    
+    login_person('ted')
 
     driver.find_element_by_id("id_origin_street").clear()
     driver.find_element_by_id("id_origin_street").send_keys("123 Sunset Ave")
@@ -153,36 +153,61 @@ def test_end2end_TedNugent_Cancels_at_last_minute():
     
 
 
-#Bug with element.text?
-# @with_setup(first,last)
-def _add_segments():
-    sel1 = driver.find_element_by_id('segment-type_1')
-    options1 = sel1.find_elements_by_tag_name('option')
-    options1[1].click()
-    driver.find_element_by_id('segment-amount_1').send_keys('4.25')
-    driver.find_element_by_id('add_1').click()
-
+@with_setup(first,last)
+def test_add_2_segments_eq_6_bucks():
+    login_person('patti')
     sel1 = driver.find_element_by_id('segment-type_2')
     options1 = sel1.find_elements_by_tag_name('option')
     options1[1].click()
-    driver.find_element_by_id('segment-amount_2').send_keys('1.75')
-    driver.find_element_by_id('add_2').click()
+    driver.find_element_by_id('segment-amount_2').clear()
+    driver.find_element_by_id('segment-amount_2').send_keys('4.25')
+
+    sel1 = driver.find_element_by_id('segment-type_3')
+    driver.find_element_by_id('segment-amount_3').clear()
+    driver.find_element_by_id('segment-amount_3').send_keys('1.75')
+    driver.find_element_by_id('add_3').click()
+    driver.find_element_by_id('rm_3').click()
+
+    
+    sel4 = driver.find_element_by_id('segment-type_4')
+    options4 = sel4.find_elements_by_tag_name('option')
+    options1[3].click()
+    driver.find_element_by_id('segment-amount_4').clear()
+    driver.find_element_by_id('segment-amount_4').send_keys('1.75')
+
     zzz()
-    e = driver.find_element_by_id('segment-amount_1')
-    logger.info( e.text )
-
-    street = driver.find_element_by_id('id_origin_street')
-    street.send_keys('123 Main St.')
-    logger.info( street.text )
-    logger.info( street.tag_name )
-    # driver.find_element_by_id('remove_3').click()
-    total = driver.find_element_by_id('totals').text
-    # eq_(6, total)
+    _total = driver.find_element_by_id('totals').get_attribute('value')
+    eq_( '6.00', _total)
 
 
 
 
 
+@with_setup(first,last)
+def test_iterate_all_segments():
+    login_person('ted')
 
+    # return
+    sel = driver.find_element_by_id('segment-type_1')
+    options = sel.find_elements_by_tag_name('option')
+    
 
+    def exercise_option(i):
+        id = str(i)
+        _sel = driver.find_element_by_id('segment-type_' + id)
+        _options = _sel.find_elements_by_tag_name('option')
+        _options[i].click()
+        driver.find_element_by_id('segment-amount_' + id).clear()
+        _amt = .1
+        driver.find_element_by_id('segment-amount_'+ id).send_keys( str(_amt) )
+        driver.find_element_by_id('add_' + id).click()
+        _total = driver.find_element_by_id('totals').get_attribute('value')
+        # Test?
+        
+    for i in range(1,len(options)):
+        # logger.info( 'i=%s' % i )
+        yield exercise_option, i
+
+    
+    
 
