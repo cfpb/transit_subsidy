@@ -2,11 +2,16 @@ from base_test import *
 
 #---------------------- Fixture ----------------------#
 
+base_url = "http://localhost:8000"
+
+
 
 def setup_module(module):
-    global driver 
+    global driver , transit , base_url
     logger.info('setup_module: %s' % module.__name__)
     driver = new_driver()
+    transit = TransitSubsidyApp(driver,base_url)
+
 
 def teardown_module(module):
     global driver
@@ -15,85 +20,19 @@ def teardown_module(module):
 
 #------------------------------------------------------#
 
-base_url = "http://localhost:8000"
-
 
 def first():
-    driver.get(base_url + "/login")
+    pass
 
 def last():
     driver.get(base_url + "/logout")
-    # driver.find_element_by_link_text('Reset Form').click()
-
-
-#Patti Smith registers Or Updates
-@with_setup(first,last)
-def test_end2end_PattiSmith_OnTheBus():
-    driver.get(base_url + "/login/")
-    eq_("Your Intranet >", driver.title)
-
-    driver.find_element_by_id("id_username").clear()
-    driver.find_element_by_id("id_username").send_keys("patti")
-    driver.find_element_by_id("id_password").clear()
-    driver.find_element_by_id("id_password").send_keys("patti")
-    driver.find_element_by_id("btn_login").click()
-    eq_("Your Intranet > Transit Subsidy Request", driver.title)
-
-    driver.find_element_by_id("id_origin_street").clear()
-    driver.find_element_by_id("id_origin_street").send_keys("123 Main St")
-    driver.find_element_by_id("id_origin_city").clear()
-    driver.find_element_by_id("id_origin_city").send_keys("Anytown")
-    driver.find_element_by_id("id_origin_state").clear()
-    driver.find_element_by_id("id_origin_state").send_keys("VA")
-    driver.find_element_by_id("id_origin_zip").clear()
-    driver.find_element_by_id("id_origin_zip").send_keys("12345")
-    driver.find_element_by_id("id_destination").find_elements_by_tag_name('option')[5].click() #1700 G
-    try:
-        driver.find_element_by_id("segment-type_1").find_elements_by_tag_name('option')[2].click()
-        driver.find_element_by_id("segment-amount_1").clear()
-        driver.find_element_by_id("segment-amount_1").send_keys("1.5")
-        driver.find_element_by_id("add_1").click()
-        driver.find_element_by_id("segment-type_2").find_elements_by_tag_name('option')[15].click()
-        driver.find_element_by_id("segment-amount_2").clear()
-        driver.find_element_by_id("segment-amount_2").send_keys("2.25")
-    except NoSuchElementException as e:  #returning user workaround
-        driver.find_element_by_id("segment-type_2").find_elements_by_tag_name('option')[2].click()
-        driver.find_element_by_id("segment-amount_2").clear()
-        driver.find_element_by_id("segment-amount_2").send_keys("1.5")
-        driver.find_element_by_id("segment-type_3").find_elements_by_tag_name('option')[15].click()
-        driver.find_element_by_id("segment-amount_3").clear()
-        driver.find_element_by_id("segment-amount_3").send_keys("2.25")
-
-
-
-    driver.find_element_by_xpath("(//input[@id='id_work_sked'])[2]").click()
-    driver.find_element_by_id("id_help_smartrip").click()
-    zzz()
-    driver.find_element_by_id("cboxClose").click()
-    zzz()
-    # driver.find_element_by_css_selector("span.form_elem > span.form_elem > label.infield").click()
-    driver.find_element_by_id("id_dc_wmta_smartrip_id").clear()
-    driver.find_element_by_id("id_dc_wmta_smartrip_id").send_keys("123-123-123")
-    driver.find_element_by_id("btn_enroll_smartrip").click()
-    zzz()
-    driver.find_element_by_id("id_last_four_ssn").send_keys("1111")
-    driver.find_element_by_id("id_signature").send_keys("Patti Smith")
-    driver.find_element_by_id("btn_agree").click()
-    eq_("Your Intranet > Transit Subsidy Confirmation", driver.title)
-
 
 
 
 #Ted (who does not have a claim) tries to register without entering any fields   
 @with_setup(first,last)
 def test_form_validation():
-    driver.find_element_by_id("id_username").clear()
-    driver.find_element_by_id("id_username").send_keys("ted")
-    driver.find_element_by_id("id_password").clear()
-    driver.find_element_by_id("id_password").send_keys("ted")
-    driver.find_element_by_id("btn_login").click()
-    eq_("Your Intranet > Transit Subsidy Request", driver.title)
-
+    transit.login('ted','ted')
 
     driver.get(base_url + '/transit')
     driver.find_element_by_id('btn_enroll_smartrip').click()
@@ -105,79 +44,111 @@ def test_form_validation():
                 'Specify commuting segments, costs, and work schedule', 
                 'We need your home address (Street, City, State, Zip)']
     
-    for m in messages:
-        yield valididate_messages , driver, m
-    
- 
-def valididate_messages(driver,message):
-    is_textpresent(driver, message)
+    def valididate_messages(message):
+        is_textpresent(driver, message)
    
+    for m in messages:
+        yield valididate_messages , m
+    
+
+
+
+#Patti Smith registers Or Updates
+@with_setup(first,last)
+def test_end2end_PattiSmith_OnTheBus():
+    
+    transit.login('patti','patti')
+    transit.commute_from()
+    transit.commute_to()
+    
+    try:
+        transit.add_segment( segment_id='1', mode_id=2, amount='1.5', add_another=True )
+        transit.add_segment( segment_id='2', mode_id=15, amount='2.25', add_another=False )
+    
+    #If returning user, the first empty segment (id=1) is removed
+    except NoSuchElementException as e: 
+        transit.add_segment( segment_id='2', mode_id=2, amount='1.50', add_another=False )
+        transit.add_segment( segment_id='3', mode_id=15, amount='2.25', add_another=False )
+
+    transit.select_workdays(1)
+    transit.view_smartriphelp()
+    transit.add_smartrip()
+    transit.enroll()
+    transit.sign('1234','Patti Smith')
+
 
 
 
 @with_setup(first,last)
-def test_end2end_TedNugent_Cancels_at_last_minute():
-    driver.get(base_url + "/login/")
-    eq_("Your Intranet >", driver.title)
+def test_end2end_TedNugent_Cancels_at_last_minute():    
+    transit.login('ted','ted')
+    transit.commute_from("123 Sunset Ave", "Hollywood", "CA", "90029")
+    transit.commute_to(7)    
+    transit.add_other_segment("1", "Limo", "400", False)
+    transit.select_workdays(id=4, other='1')
+    # driver.find_element_by_id('id_total_commute_cost').click() #fire js validation event
+    transit.enroll()
+    transit.dont_sign()
 
-    driver.find_element_by_id("id_username").clear()
-    driver.find_element_by_id("id_username").send_keys("ted")
-    driver.find_element_by_id("id_password").clear()
-    driver.find_element_by_id("id_password").send_keys("ted")
-    driver.find_element_by_id("btn_login").click()
-    eq_("Your Intranet > Transit Subsidy Request", driver.title)
 
-    driver.find_element_by_id("id_origin_street").clear()
-    driver.find_element_by_id("id_origin_street").send_keys("123 Sunset Ave")
-    driver.find_element_by_id("id_origin_city").clear()
-    driver.find_element_by_id("id_origin_city").send_keys("Holywood")
-    driver.find_element_by_id("id_origin_state").clear()
-    driver.find_element_by_id("id_origin_state").send_keys("CA")
-    driver.find_element_by_id("id_origin_zip").clear()
-    driver.find_element_by_id("id_origin_zip").send_keys("90027")
-    driver.find_element_by_id("id_destination").find_elements_by_tag_name('option')[7].click() 
 
-    driver.find_element_by_id("segment-type_1").find_elements_by_tag_name('option')[17].click()
-    driver.find_element_by_id("segment-other_1").send_keys('Limo')
-    driver.find_element_by_id("segment-amount_1").clear()
-    driver.find_element_by_id("segment-amount_1").send_keys("400")
 
-    driver.find_element_by_xpath("(//input[@id='id_work_sked'])[4]").click()
-    driver.find_element_by_id('id_number_of_workdays').clear()
-    driver.find_element_by_id('id_number_of_workdays').send_keys('1')
-    driver.find_element_by_id('id_total_commute_cost').click() #fire js validation event
-    driver.find_element_by_id("btn_enroll_smartrip").click()
-    zzz()
-    driver.find_element_by_id("btn_no_agree").click()
-    eq_("Your Intranet > Transit Subsidy Request", driver.title)
+@with_setup(first,last)
+def test_add_2_segments_eq_6_bucks():
+    transit.login('patti','patti')
+    transit.add_segment( segment_id='2', mode_id=1, amount='4.25', add_another=False )
+    transit.add_segment( segment_id='3', mode_id=5, amount='1.75', add_another=True )
+    transit.remove_segment( segment_id='3')
+    transit.add_segment( segment_id='4', mode_id=3, amount='1.75', add_another=False )
+    _total = driver.find_element_by_id('totals').get_attribute('value')
+    eq_( '6.00', _total)
+
+
+
+
+
+@with_setup(first,last)
+def test_iterate_all_segments():
+    transit.login()
+    # return
+    sel = driver.find_element_by_id('segment-type_1')
+    options = sel.find_elements_by_tag_name('option')
     
 
+    def exercise_option(i):
+        id = str(i)
+        transit.add_segment( segment_id=id, mode_id=i, amount='1', add_another=True )
+        
+    for i in range(1,len(options)):
+        # logger.info( 'i=%s' % i )
+        yield exercise_option, i
+    
+    total = driver.find_element_by_id('totals').get_attribute('value')
+    expected = len(options)-1
+    eq_( str(expected) + '.00', total )
 
-#Bug with element.text?
-# @with_setup(first,last)
-def _add_segments():
-    sel1 = driver.find_element_by_id('segment-type_1')
-    options1 = sel1.find_elements_by_tag_name('option')
-    options1[1].click()
-    driver.find_element_by_id('segment-amount_1').send_keys('4.25')
-    driver.find_element_by_id('add_1').click()
+    
+    
+@with_setup(first,last)
+def test_add_remove_many_segments():    
+    transit.login()
+    transit.add_segment( segment_id='1', mode_id=1, amount='1', add_another=True )
+    transit.add_segment( segment_id='2', mode_id=2, amount='2', add_another=True )
+    transit.add_segment( segment_id='3', mode_id=3, amount='3', add_another=True )
+    transit.add_segment( segment_id='4', mode_id=4, amount='4', add_another=False )
 
-    sel1 = driver.find_element_by_id('segment-type_2')
-    options1 = sel1.find_elements_by_tag_name('option')
-    options1[1].click()
-    driver.find_element_by_id('segment-amount_2').send_keys('1.75')
-    driver.find_element_by_id('add_2').click()
-    zzz()
-    e = driver.find_element_by_id('segment-amount_1')
-    logger.info( e.text )
+    transit.remove_segment(2)
+    transit.click_add() #5
+    transit.add_segment( segment_id='5', mode_id=5, amount='5', add_another=False )
 
-    street = driver.find_element_by_id('id_origin_street')
-    street.send_keys('123 Main St.')
-    logger.info( street.text )
-    logger.info( street.tag_name )
-    # driver.find_element_by_id('remove_3').click()
-    total = driver.find_element_by_id('totals').text
-    # eq_(6, total)
+    transit.remove_segment(4)
+    transit.click_add() #6
+    transit.add_segment( segment_id='6', mode_id=6, amount='6', add_another=False )
+
+    transit.remove_segment(6)
+    transit.remove_segment(5)
+    transit.remove_segment(3)
+    transit.reset()
 
 
 
@@ -185,4 +156,6 @@ def _add_segments():
 
 
 
-
+    # transit.commute_from("123 Sunset Ave", "Hollywood", "CA", "90029")
+    # transit.commute_to(7)    
+    
