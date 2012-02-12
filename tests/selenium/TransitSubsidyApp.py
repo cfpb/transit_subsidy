@@ -86,7 +86,7 @@ class TransitSubsidyApp():
     def select_workdays(self, id=2, other=None):
         self.driver.find_element_by_xpath("(//input[@id='id_work_sked'])[%s]" % id).click()
         if id==4: 
-            self.driver.find_element_by_id('id_number_of_workdays').clear()
+            self.driver.find_element_by_id('id_number_of_workdays').clear() 
             self.driver.find_element_by_id('id_number_of_workdays').send_keys(other)
 
 
@@ -106,6 +106,7 @@ class TransitSubsidyApp():
 
     
     def sign(self, last_four_ssn='1234', signature='Mick Jagger'):    
+        time.sleep(.5)
         self.driver.find_element_by_id("id_last_four_ssn").send_keys(last_four_ssn)
         self.driver.find_element_by_id("id_signature").send_keys(signature)
         self.driver.find_element_by_id("btn_agree").click()
