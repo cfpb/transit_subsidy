@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'transit/$','transit_subsidy.views.home'),
     url(r'transit/csv$','transit_subsidy.views.dump_csv'), 
     url(r'transit/modes$','transit_subsidy.views.modes_json'), 
+    url(r'transit/cancel$','transit_subsidy.views.cancel'), 
     
 )
 # urlpatterns += staticfiles_urlpatterns()

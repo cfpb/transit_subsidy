@@ -1,3 +1,4 @@
+import time
 from django.utils.unittest.case import skipIf
 from datetime import datetime
 from django.test import TestCase
@@ -24,7 +25,6 @@ class TransportationSubsidyModelTest(TestCase):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
-    # --- To Do: Refactor to model_form_tests
 
     def test_wrong_days_at_work_should_cause_form_error(self):
         data = self._get_good_post_data()
@@ -62,10 +62,6 @@ class TransportationSubsidyModelTest(TestCase):
 
 
     def test_basic_transit_subsidy_model_creation(self):
-        """
-        Test basic transit subsidy model creation
-
-        """
         self._set_transit_subsidy()
         actual = TransitSubsidy.objects.filter(user=self.user)
         self.assertEquals( self.user, actual[0].user, "Different users" )
@@ -73,9 +69,6 @@ class TransportationSubsidyModelTest(TestCase):
 
 
     def test_unicode_to_string(self):        
-        """
-        Test unicode to string.
-        """
         expected = 'jimi'
         self._set_transit_subsidy()
         ts = TransitSubsidy.objects.filter(user=self.user)
@@ -83,12 +76,25 @@ class TransportationSubsidyModelTest(TestCase):
         self.assertEquals( expected, actual, "Why this thing went horribly wrong." )
     
     
+    def test_enroll_then_cancel(self):
+        t = self._set_transit_subsidy()
+        id = t.pk
+        ts = TransitSubsidy.objects.get(pk=id)
+        _now = datetime.now()
+        time.sleep(.379987612123676871236) #try to throw a wrench in time
+        ts.date_withdrawn = _now
+        ts.save()
+        ts2 = TransitSubsidy.objects.get(pk=id)
+        self.assertEquals( ts2.date_withdrawn, _now, "These values should be the same" )
+        self.assertEquals( ts2.date_withdrawn, ts.date_withdrawn, "These values should be the same" )
+
 
 
      #Util method
     def _get_good_post_data(self):
         return {  'date_enrolled' : datetime.now(),
                   'timestamp' : datetime.now(),
+                  'data_withdrawn': None,
                   'last_four_ssn': '1111',
                   'origin_street': '123 Main St.',
                   'origin_city':'Anytown',
@@ -99,7 +105,7 @@ class TransportationSubsidyModelTest(TestCase):
                   'number_of_workdays': 20,
                   'daily_roundtrip_cost' : 8,
                   'daily_parking_cost': 4,
-                  'amount': 164,
+                  'amount': 125,
                   'terms_of_service' : True,
                   'supervisor_approval': True}
 
@@ -113,6 +119,7 @@ class TransportationSubsidyModelTest(TestCase):
         transit.signature = 'foo'
         transit.destination = office
         transit.date_enrolled = '2011-06-23'
+        transit.date_withdrawn = None
 
         transit.origin_street = '123 Main Street'
         transit.origin_city = 'Anytown'
@@ -128,4 +135,5 @@ class TransportationSubsidyModelTest(TestCase):
         transit.dc_wmta_smartrip_id = '123-123-123'
         
         transit.save()
+        return transit
     

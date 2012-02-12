@@ -1,3 +1,4 @@
+import logging
 from django.utils.unittest.case import skipIf,skip
 from datetime import datetime
 from django.test import TestCase
@@ -8,9 +9,20 @@ import csv
 from django.contrib.auth.models import User
 
 
+logger = logging.getLogger('transit')
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('[%(name)s] %(asctime)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+
+
 class TransportationSubsidyViewTest(TestCase):
     fixtures = ['offices.json','transit_modes.json', 'users.json']
 
+    
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def setUp(self):
         """
@@ -52,9 +64,7 @@ class TransportationSubsidyViewTest(TestCase):
        
 
 
-
     def test_that_successful_transit_request_redirects_to_thankyou(self):
-       
         #The below was causing failure ONLY when executed in Jenkins:
         response = self.client.post('/transit/', self.get_good_post_data() )
         self.assertTemplateUsed(response,'transit_subsidy/thank_you.html')
@@ -100,6 +110,7 @@ class TransportationSubsidyViewTest(TestCase):
         self.assertEqual(200, response.status_code, "Did't get to template assertion. Check login logic or db.")
         self.assertTemplateUsed(response,'transit_subsidy/index.html')
 
+
     def test_set_modes(self):
         self.set_modes()
         trans = TransitSubsidy.objects.all()[0]
@@ -113,7 +124,18 @@ class TransportationSubsidyViewTest(TestCase):
         response = self.client.post('/transit/', pd)
         #print response
         self.assertTemplateUsed(response,'transit_subsidy/thank_you.html')
-           
+
+    
+    def test_transit_subsidy_withdrawl(self):
+        pd = self.get_good_post_data()
+        pd.update( self.get_good_segment_data() )
+        response = self.client.post('/transit/', pd)
+        response = self.client.post('/transit/cancel')
+        self.assertTrue( response.context['transit'].date_withdrawn != None)
+        self.assertTemplateUsed(response,'transit_subsidy/cancel.html')
+        logger.info( response.context['transit'].date_withdrawn )
+
+                   
 
 
     #Util method

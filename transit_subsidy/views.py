@@ -6,10 +6,12 @@ from django.template import Template, Context
 from django.contrib.auth.decorators import login_required
 from dynamicresponse.response import *
 from models import TransitSubsidy,TransitSubsidyForm,Mode,TransitSubsidyModes
-import datetime
+from datetime import datetime
 import json as simplejson
 from django.views.decorators.csrf import csrf_exempt
 
+
+SENDER = 'transitsubsidy@yourcompany.com'
 
 
 @csrf_exempt
@@ -80,9 +82,10 @@ def home(request):
                 pass
 
             if None == frm.date_enrolled:
-                frm.date_enrolled = datetime.datetime.now()
+                frm.date_enrolled = datetime.now()
 
             frm.user = request.user
+            frm.date_withdrawn =  None
 
             frm.save()
 
@@ -104,7 +107,7 @@ def home(request):
     else:
         try:
             transit = TransitSubsidy.objects.get(user=request.user)
-            # Because of ATO, we shouldn't need to encrypt this
+            # Because of ATO, we shouldn't need to encrypt this, but we could if needed:
             # transit.last_four_ssn = decrypt(__KEY,transit.last_four_ssn)
             returning_user = True
             timestamp = transit.timestamp
@@ -117,7 +120,8 @@ def home(request):
         form = TransitSubsidyForm(instance=transit)
         return render_to_response('transit_subsidy/index.html', {'form' : form, 'user' : request.user,
                                                                  'returning_user': returning_user,
-                                                                  'modes': modes, 'timestamp' : timestamp},
+                                                                 'modes': modes, 'timestamp' : timestamp,
+                                                                 'transit': transit },
                                                                   RequestContext(request) )
 
 
@@ -129,8 +133,8 @@ def send_notification(user, transit):
     @param user:  the person who requested the subsidy
     @param transit: L{TransitSubsidy} the transit subsidy claim object
     """
-    _sender = 'CFPB_TransitSubsidy@cfpb.gov'
-    _subject = 'CFPB''s Transit Subsidy Program: Thank You for Beginning Your Enrollment'
+    _sender = SENDER
+    _subject = 'Transit Subsidy Program: Thank You for Beginning Your Enrollment'
     message = Template("""
     <style>html,p{font-family: arial, helvetica}</style>
 
@@ -140,16 +144,8 @@ def send_notification(user, transit):
 
     <p>You submitted a Transit Subsidy request on {{ transit.timestamp }} for ${{ transit.amount }} per month.</p>
 
-    <hr size="1" color="#188A00">
-
-    <p>Detailed information about the program is available here: http://team.cfpb.local/wiki/index.php/Transit_Subsidy_Program</p>
-
-    <p>The Transit Subsidy Policy: http://team.cfpb.local/wiki/index.php/Transit_Subsidy_Policy_%28interim%29</p>
-
-
-    <p>Please direct any questions to CFPB_TransitSubsidy@cfpb.gov</p>
-    
     """)
+
     ctx = Context({'user':user,'transit':transit})
 
     # send_mail('Transit Subsidy Request Confirmation', message.render(ctx), sender, [user.email])
@@ -162,6 +158,19 @@ def send_notification(user, transit):
     e.content_subtype = "html"
     e.send()
 
+
+
+@login_required
+def cancel(request):
+    if (request.method != 'POST'):
+        raise Exception('Please POST to this URL')
+    else:
+        transit = TransitSubsidy.objects.get(user=request.user)
+        transit.date_withdrawn = datetime.now()
+        transit.save()
+        return render_to_response('transit_subsidy/cancel.html', { 'user' : request.user, 'transit': transit},
+                                                                    RequestContext(request) )
+        
 
 
 

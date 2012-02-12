@@ -16,7 +16,7 @@ class TransitSubsidyApp():
         WebDriver Page model pattern (http://code.google.com/p/selenium/wiki/PageObjects)
         and applies to the application as a whole rather than a single page state.
 
-        note_to_self: one or more page objects could comprise a application object, which,
+        @note_to_self: one or more page objects could comprise a application object, which,
                       more or less, could serve as a testing facade.
 
     """

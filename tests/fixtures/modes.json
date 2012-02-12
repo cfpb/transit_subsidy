@@ -1,0 +1,233 @@
+[
+  {
+    "pk": 35, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "AMTRAK", 
+      "locality": "Nationwide", 
+      "url_link": "http://www.amtrak.com", 
+      "short_name": "AMTRAK", 
+      "distribution_method": "TranBen"
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Arlington Transit", 
+      "locality": "Arlington, VA", 
+      "url_link": "http://www.arlingtontransit.com/", 
+      "short_name": "ART", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 37, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Bay Area Rapid Transit", 
+      "locality": "San Francisco", 
+      "url_link": "http://bart.gov", 
+      "short_name": "BART", 
+      "distribution_method": "Regional"
+    }
+  }, 
+  {
+    "pk": 39, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Chicago Transit Authority", 
+      "locality": "Chicago", 
+      "url_link": "http://www.transitchicago.com/", 
+      "short_name": "CTA", 
+      "distribution_method": "Regional"
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "DC Circulator", 
+      "locality": "DC Metro", 
+      "url_link": "http://www.dccirculator.com/", 
+      "short_name": "DC Circulator", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Alexandria Dash Bus", 
+      "locality": "Alexandria, VA", 
+      "url_link": "http://dashbus.com", 
+      "short_name": "Dash", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Dillon Bus Service", 
+      "locality": "DC Metro", 
+      "url_link": "http://http://www.dillonbus.com/", 
+      "short_name": "Dillon", 
+      "distribution_method": "Debit Card"
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Eyre Bus, Tour, Travel", 
+      "locality": "Baltimore. MD", 
+      "url_link": "http://www.eyre.com/", 
+      "short_name": "Eyre", 
+      "distribution_method": "TRANServe"
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Fairfax Connector", 
+      "locality": "Fairfax, VA", 
+      "url_link": "http://www.fairfaxcounty.gov/connector/", 
+      "short_name": "Fairfax Connector", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Keller Transportation, Inc. (Bus)", 
+      "locality": "Maryland", 
+      "url_link": "http://www.kellerbus.com/", 
+      "short_name": "Keller", 
+      "distribution_method": "TRANServe"
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Loudon County Transit", 
+      "locality": "Loudon County, VA", 
+      "url_link": "http://www.loudoun.gov/Default.aspx?tabid=785", 
+      "short_name": "Loudon County Transit", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "MARC Train Service", 
+      "locality": "Maryland", 
+      "url_link": "http://mta.maryland.gov/marc-train", 
+      "short_name": "MARC", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Martz Virginia - Commuters, Charter, Transportation", 
+      "locality": "Virgina", 
+      "url_link": "http://www.martzgroupva.com/", 
+      "short_name": "MARTZ", 
+      "distribution_method": "TRANServe"
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Metropolitan Transit Authority", 
+      "locality": "New York Metro", 
+      "url_link": "http://www.mta.info", 
+      "short_name": "MTA", 
+      "distribution_method": "Regional"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Washington Metropolitan Transit Authority", 
+      "locality": "DC Metro", 
+      "url_link": "http://www.wmata.com/", 
+      "short_name": "Metro", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "WMTA MetroBus", 
+      "locality": "DC Metro", 
+      "url_link": "http://www.wmata.com/bus/", 
+      "short_name": "MetroBus", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Other mode not listed", 
+      "locality": "Other", 
+      "url_link": "Other", 
+      "short_name": "Other", 
+      "distribution_method": "Other"
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "PRTC OmniRide", 
+      "locality": "Virginia", 
+      "url_link": "http://www.prtctransit.org/", 
+      "short_name": "PRTC OmniRide", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Ride On, Montgomery Country", 
+      "locality": "Montgomery County, MD", 
+      "url_link": "http://www.montgomerycountymd.gov/tsvtmpl.asp", 
+      "short_name": "Ride On", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "TheBus - Prince George's County DoT", 
+      "locality": "Prince George's County, MD", 
+      "url_link": "http://www.princegeorgescountymd.gov//Government/AgencyIndex/DPW&T/Transit/thebus.asp", 
+      "short_name": "TheBus", 
+      "distribution_method": "Smartrip"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "transit_subsidy.mode", 
+    "fields": {
+      "long_name": "Virginia Railway Express", 
+      "locality": "Virginia", 
+      "url_link": "http://vre.org", 
+      "short_name": "VRE", 
+      "distribution_method": "Debit Card"
+    }
+  }
+]

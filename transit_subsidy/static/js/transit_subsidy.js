@@ -123,7 +123,8 @@ $(document).ready( function(){
 
 
 
-  $("#colorbox").appendTo('form:first');
+  $("#colorbox").appendTo('#frm_smartrip');
+ 
 
 
   /**
@@ -406,6 +407,15 @@ $(document).ready( function(){
     $('#id_commuter_tools').colorbox({
        width: '420px',
        html: $('#id_transit_tool_wrapper').html()
+    });
+
+
+    /**
+    * Displays modal dialog for the Transit Tools
+    * */
+    $('#id_cancel_enrollment').colorbox({
+       width: '420px',
+       html: $('#id_withdrawl_dialog').html()
     });
 
 

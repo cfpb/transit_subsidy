@@ -23,11 +23,17 @@
 
 
     {% if returning_user %}
-       
+      
 
+      
     <script>
         $(document).ready(function(){
+            
             $('#btn_enroll_smartrip').val('Update');
+            {% if transit.date_withdrawn != None %}
+              $('#btn_enroll_smartrip').val('Re-enroll');
+            {% endif %}
+
             var location_id = $('#id_destination  option:selected').val();
             var city_abbrev = location_id.substr(0,2);
             $('#transit_tools').html( '<span style="color: #0c821a;">|</span>&nbsp;&nbsp; Trip planner for: '  + transit_tool_links[city_abbrev] );
@@ -110,7 +116,28 @@
 {% if returning_user %}
     <span style="color:#333;">Welcome back, {{ user.first_name }}!</span><br/>
     <br/>
-    <p style="color:#888;font-weight: normal;font-size: small;text-align:center">Last updated or enrolled on {{ timestamp }}</p>
+    
+    {% if transit.date_withdrawn != None %}
+      <p style="color:#666;font-weight:bold;font-size:.85em;text-align:center">
+      Looks like you withdrew on {{transit.date_withdrawn}} <br />
+      Need to re-enroll?   Just complete the form 
+      below ...
+      </p>
+    {% else %}
+    
+      <p style="color:#888;font-weight: normal;font-size: small;text-align:center">Last updated or enrolled on {{ timestamp }}</p>
+
+      <p style="color:#888;font-weight: normal;font-size: small;text-align:center">Need to cancel your enrollment? No problem!   
+      <a href="#" id="id_cancel_enrollment">Cancel my enrollment.</a> You can re-enroll at any time.
+      </p>
+   
+      
+      <form style="font-size:.75em;color:#333333;font-weight:normal" name="frm_cancel" id="id_frm_cancel" method="POST" action="/transit/cancel">{% csrf_token %}</form>
+
+
+    {% endif %}
+    
+ 
 {% endif %}
 </div>
 
@@ -436,10 +463,8 @@
                     </p>
                     
                     <p>
-                        <input class="_button" type="submit" id="btn_agree" value="I agree" />&nbsp;
-
-                        <input type="button" id="btn_no_agree" name="btn_no_agree" value="I do not agree" onClick="$.colorbox.close()" />
-                        
+                      <input class="_button" type="submit" id="btn_agree" value="I agree" />&nbsp;
+                      <input type="button" id="btn_no_agree" name="btn_no_agree" value="I do not agree" onClick="$.colorbox.close()" />    
                     </p>
                 </fieldset>
             </div>
@@ -563,6 +588,29 @@
 </div>
 
 
+<!-- HTML For Withdrawl-->
+<div id="id_withdrawl_dialog" style="visibility: hidden; display: none">
+<div id=id_help>
+    <h1 align="center">Withdrawing from Transit Subsidy</h1>
+    <p align="center" > <hr size="1" width="100%" /></p>
+    <div> 
+      <p>You are about to withdraw from the Tranisit Subsidy program. 
+      As of the next cycle, you will no longer receive transit benefits.
+      </p>
+      &nbsp;
+      <p>
+        If you wish to re-enroll, simply return to this form and complete the
+        information
+      </p>
+      &nbsp;
+      <p align="center">
+        <input type="button" id="btn_wiithdraw_agree" value="I agree" onClick="$('#id_frm_cancel').submit()" />
+        <input type="button" id="btn_wiithdraw_no_agree" value="I do not agree" onClick="$.colorbox.close()" />
+      </div>
+    </div>
+   <p>&nbsp;</p>
+</div>
+</div>
 
 
 </div>
