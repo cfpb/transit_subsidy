@@ -1,8 +1,18 @@
+__author__ = "CFPBLabs"
+
+""" 
+ Tests the TransitSubsidyApp which abstract the functionality of the actual application.
+"""
+
+
 from base_test import *
 
 #---------------------- Fixture ----------------------#
 
-base_url = "http://localhost:8000"
+
+# Assumes tests will be run on the same server the app is running on.
+# Obviously, this will have to be changed if testing a remote instance.
+base_url = "http://localhost:8000"  
 
 
 
@@ -28,7 +38,6 @@ def last():
     driver.get(base_url + "/logout")
 
 
-
 #Ted (who does not have a claim) tries to register without entering any fields   
 @with_setup(first,last)
 def test_form_validation():
@@ -37,20 +46,17 @@ def test_form_validation():
     driver.get(base_url + '/transit')
     driver.find_element_by_id('btn_enroll_smartrip').click()
     
-    messages = ['You must select your office location',
-                'Select a segment and enter an amount.',
-                'Please select one work schedule option',
-                'Select at least one work schedule option above',
-                'Specify commuting segments, costs, and work schedule', 
-                'We need your home address (Street, City, State, Zip)']
-    
-    def valididate_messages(message):
-        is_textpresent(driver, message)
-   
-    for m in messages:
-        yield valididate_messages , m
-    
+    ids = [ 'id_origin_zip', 'segment-amount_1', 'work_sked', 'id_number_of_workdays', 'id_amount']
 
+    def valididate_messages(id):
+        e = driver.find_element_by_css_selector('em[for="%s"]' % id)
+        expected = 'error'  # Will be "success" when validation passes
+        actual = e.get_attribute('class')
+        eq_( expected, actual, "Validation error should be present for : %s" % id)   
+    
+    for id in ids:
+        yield valididate_messages , id
+    
 
 
 #Patti Smith registers Or Updates
@@ -72,6 +78,7 @@ def test_end2end_PattiSmith_OnTheBus():
 
     transit.select_workdays(1)
     transit.view_smartriphelp()
+    zzz()
     transit.add_smartrip()
     transit.enroll()
     transit.sign('1234','Patti Smith')
@@ -86,7 +93,6 @@ def test_end2end_TedNugent_Cancels_at_last_minute():
     transit.commute_to(7)    
     transit.add_other_segment("1", "Limo", "400", False)
     transit.select_workdays(id=4, other='1')
-    # driver.find_element_by_id('id_total_commute_cost').click() #fire js validation event
     transit.enroll()
     transit.dont_sign()
 
@@ -105,10 +111,8 @@ def test_add_2_segments_eq_6_bucks():
 
 
 
-
-
 @with_setup(first,last)
-def test_iterate_all_segments():
+def test_validate_smartrip_segments():
     transit.login()
     # return
     sel = driver.find_element_by_id('segment-type_1')
@@ -127,8 +131,39 @@ def test_iterate_all_segments():
     expected = len(options)-1
     eq_( str(expected) + '.00', total )
 
+
+
+
+@with_setup(first,last)
+def test_iterate_Smartrip_segments():
+    transit.login()
+    #Potentially brittle: IDs for Art,Dash,Metro Bus,Metro
+    smartrips = [2,6,15,16]
+
+    def exercise_option(id):
+        transit.add_segment( segment_id='1', mode_id=id, amount='1', add_another=False )
+        transit.enroll()
+        is_textpresent(driver,'Enter your Smartip card number')
+        
+    for id in smartrips:
+        transit.reset()
+        yield exercise_option, id
     
     
+
+@with_setup(first,last)
+def test_Smartrip_length():
+    transit.login()
+    transit.add_segment( segment_id='1', mode_id=2, amount='1', add_another=False )
+    transit.add_smartrip('12345678')
+    transit.enroll()
+    e = driver.find_element_by_css_selector('em[for="id_dc_wmta_smartrip_id"]')
+    expected = 'error'
+    actual = e.get_attribute('class')
+    eq_( expected, actual, "Smartrip error should be present.")
+
+    
+
 @with_setup(first,last)
 def test_add_remove_many_segments():    
     transit.login()
@@ -150,12 +185,3 @@ def test_add_remove_many_segments():
     transit.remove_segment(3)
     transit.reset()
 
-
-
-
-
-
-
-    # transit.commute_from("123 Sunset Ave", "Hollywood", "CA", "90029")
-    # transit.commute_to(7)    
-    

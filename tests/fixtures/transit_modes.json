@@ -117,7 +117,7 @@
       "locality": "Loudon County, VA", 
       "url_link": "http://www.loudoun.gov/Default.aspx?tabid=785", 
       "short_name": "Loudon County Transit", 
-      "distribution_method": "Smartip"
+      "distribution_method": "Smartrip"
     }
   }, 
   {
@@ -161,7 +161,7 @@
       "locality": "DC Metro", 
       "url_link": "http://www.wmata.com/", 
       "short_name": "Metro", 
-      "distribution_method": "Smartip"
+      "distribution_method": "Smartrip"
     }
   }, 
   {
