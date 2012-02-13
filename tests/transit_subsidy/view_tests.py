@@ -1,16 +1,30 @@
+import logging
+import StringIO
+import csv
 from django.utils.unittest.case import skipIf,skip
 from datetime import datetime
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.core import mail
 from transit_subsidy.models import TransitSubsidy,Mode,TransitSubsidyModes,OfficeLocation
-import StringIO
-import csv
+import transit_subsidy
 from django.contrib.auth.models import User
+
+
+logger = logging.getLogger('transit')
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('[%(name)s] %(asctime)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
 
 
 class TransportationSubsidyViewTest(TestCase):
     fixtures = ['offices.json','transit_modes.json', 'users.json']
 
+    
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def setUp(self):
         """
@@ -23,10 +37,49 @@ class TransportationSubsidyViewTest(TestCase):
 
 
     def tearDown(self):
+        
         pass
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
+
+    def test_enrollment_notification_email(self):
+        transit = self._set_transit_subsidy()
+        transit_subsidy.views.send_enrollment_notification(self.user,transit)
+        self.assertEquals(1, len(mail.outbox))
+        message = mail.outbox[0].message().as_string()
+        self.assertTrue( message.find( '<p>Dear Ted,</p>')  > -1 ,"[Dear Ted] not found in message body." )
+        self.assertTrue( message.find( 'Thank you' ) > -1 , "[Thank you] not found in message body.")
+
+    def test_send_enrollment_notification_email_from_http_request(self):
+        #The below was causing failure ONLY when executed in Jenkins:
+        response = self.client.post('/transit/', self.get_good_post_data() )
+        self.assertEquals(1, len(mail.outbox))
+        message = mail.outbox[0].message().as_string()
+        self.assertTrue( message.find( '<p>Dear Ted,</p>')  > -1 ,"[Dear Ted] not found in message body." )
+        self.assertTrue( message.find( 'Thank you' ) > -1 , "[Thank you] not found in message body.")
+
+
+    def test_withdrawl_notification_email(self):
+        transit = self._set_transit_subsidy()
+        transit_subsidy.views.send_withdrawl_notification(self.user)
+        self.assertEquals(1, len(mail.outbox))
+        message = mail.outbox[0].message().as_string()
+        # print message
+        self.assertTrue( message.find( '<p>Dear Ted,</p>')  > -1 ,"[Dear Ted] not found in message body." )
+        self.assertTrue( message.find( 'You have been withdrawn' ) > -1 , "[You have been withdrawn] not found in message body.")
+
+
+    def test_send_withdrawl_notification_email_from_http_request(self):
+        transit = self._set_transit_subsidy()
+        response = self.client.post('/transit/cancel')
+        self.assertEquals(1, len(mail.outbox))
+        message = mail.outbox[0].message().as_string()
+        # print message
+        self.assertTrue( message.find( '<p>Dear Ted,</p>')  > -1 ,"[Dear Ted] not found in message body." )
+        self.assertTrue( message.find( 'You have been withdrawn' ) > -1 , "[You have been withdrawn] not found in message body.")
+        
+
     def test_returning_users_should_see_submitted_data(self):
         self._set_transit_subsidy()
         response = self.client.get('/transit/')
@@ -52,9 +105,7 @@ class TransportationSubsidyViewTest(TestCase):
        
 
 
-
     def test_that_successful_transit_request_redirects_to_thankyou(self):
-       
         #The below was causing failure ONLY when executed in Jenkins:
         response = self.client.post('/transit/', self.get_good_post_data() )
         self.assertTemplateUsed(response,'transit_subsidy/thank_you.html')
@@ -100,6 +151,7 @@ class TransportationSubsidyViewTest(TestCase):
         self.assertEqual(200, response.status_code, "Did't get to template assertion. Check login logic or db.")
         self.assertTemplateUsed(response,'transit_subsidy/index.html')
 
+
     def test_set_modes(self):
         self.set_modes()
         trans = TransitSubsidy.objects.all()[0]
@@ -113,7 +165,18 @@ class TransportationSubsidyViewTest(TestCase):
         response = self.client.post('/transit/', pd)
         #print response
         self.assertTemplateUsed(response,'transit_subsidy/thank_you.html')
-           
+
+    
+    def test_transit_subsidy_withdrawl(self):
+        pd = self.get_good_post_data()
+        pd.update( self.get_good_segment_data() )
+        response = self.client.post('/transit/', pd)
+        response = self.client.post('/transit/cancel')
+        self.assertTrue( response.context['transit'].date_withdrawn != None)
+        self.assertTemplateUsed(response,'transit_subsidy/cancel.html')
+        logger.info( response.context['transit'].date_withdrawn )
+
+                   
 
 
     #Util method

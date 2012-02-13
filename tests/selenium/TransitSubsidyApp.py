@@ -4,6 +4,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,7 +17,7 @@ class TransitSubsidyApp():
         WebDriver Page model pattern (http://code.google.com/p/selenium/wiki/PageObjects)
         and applies to the application as a whole rather than a single page state.
 
-        note_to_self: one or more page objects could comprise a application object, which,
+        @note_to_self: one or more page objects could comprise a application object, which,
                       more or less, could serve as a testing facade.
 
     """
@@ -92,6 +93,7 @@ class TransitSubsidyApp():
 
     def view_smartriphelp(self):
         self.driver.find_element_by_id("id_help_smartrip").click()
+        #Keys.ESCAPE should work, too
         self.driver.find_element_by_id("cboxClose").click()
 
 
@@ -117,5 +119,24 @@ class TransitSubsidyApp():
     def dont_sign(self):    
         self.driver.find_element_by_id("btn_no_agree").click()
         eq_("Your Intranet > Transit Subsidy Request", self.driver.title)
+
+    
+    def withdraw_enrollment(self):
+        
+        # Running out of time this morning. This aint workin!
+        # self.driver.find_element_by_link_text('Cancel my enrollment.').click()
+        #test no agree (for grins)
+        # time.sleep(.5)
+        # self.driver.find_element_by_id("btn_withdraw_no_agree").click()
+        #Selenium thowing Element is not clickable at point (558, 165). Other element would receive the click: <div id="cboxOverlay" style="cursor: pointer; opacity: 0.22499999403953552; "></div>
+        # self.driver.find_element_by_id('id_withdrawl_dialog').send_keys(Keys.ESCAPE) #Just hit Escape instead
+        #In theaory, this should work, too: self.driver.find_element_by_id("cboxClose").click()
+
+        
+        #OK - now let's cancel
+        self.driver.find_element_by_link_text('Cancel my enrollment.').click()
+        time.sleep(1)
+        self.driver.find_element_by_id("btn_withdraw_agree").click()
+        eq_("Your Intranet > Transit Subsidy Withdrawl Confirmation", self.driver.title)
 
 

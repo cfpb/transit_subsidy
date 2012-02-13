@@ -38,6 +38,13 @@ def last():
     driver.get(base_url + "/logout")
 
 
+
+@with_setup(first,last)
+def test_that_patti_smith_withdraws_enrollment():
+    transit.login('patti','patti')
+    transit.withdraw_enrollment()
+
+
 #Ted (who does not have a claim) tries to register without entering any fields   
 @with_setup(first,last)
 def test_form_validation():

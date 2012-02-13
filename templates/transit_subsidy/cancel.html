@@ -1,0 +1,60 @@
+{% extends "transit_subsidy/base.html" %}
+
+	{% block "title" %}Transit Subsidy Withdrawl Confirmation{% endblock %}
+	
+	{% block "page_css" %}
+
+    <link type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/colorbox.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/transit_subsidy.css" rel="stylesheet" />
+	
+
+	{% endblock %}
+	
+	{% block "page_js" %}
+    
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.infieldlabel.min.js"></script>
+
+
+    {% endblock %}
+
+
+{% block "header" %}
+{% endblock %}
+
+
+{% block "content" %}
+<style>
+	.confirm_text{
+		color:#444;
+		font-weight: bold;
+		font-size:1.25em;
+	}
+</style>
+<h1 style="color:#aaa;font-size: 3em" align="center">Transit Subsidy Withdrawl</h1>
+
+<div id="wrapper" align="center">
+<div id="container" align="center" style="width:860px;border: 0px dotted #eeeeee">
+
+<div id="success_status">
+    <br/>
+    {{user.first_name}}, 
+    you've been withdrawn from the Transit Subsidy program. <br/>
+    <p style="color:#000; size:.85em">Please check your email for a confirmation.</p>
+</div>
+<hr/>
+  <div>
+     You can re-enroll at anytime by <a href="/transit/">submitting a new transit subsidy request.</a>
+ </div>
+
+</div>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+{% endblock %}
