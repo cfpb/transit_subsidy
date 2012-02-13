@@ -100,7 +100,7 @@ def home(request):
              
             modes = TransitSubsidyModes.objects.filter(transit_subsidy=frm)    
 
-            send_notification(request.user,frm) #user and transit objects as args
+            send_enrollment_notification(request.user,frm) #user and transit objects as args
 
             return render_to_response('transit_subsidy/thank_you.html', {'form' : frm, 'user' : request.user, 'modes': modes,
                                                                      'success_message': 'OK!'}, RequestContext(request))
@@ -126,7 +126,7 @@ def home(request):
 
 
 
-def send_notification(user, transit):
+def send_enrollment_notification(user, transit):
     """
     Sends an email notification to the person who submitted the transit subsidy request.
     
@@ -140,7 +140,7 @@ def send_notification(user, transit):
 
     <p>Dear {{user.first_name}},</p>
 
-    <p>Thank you for your enrollment in the CFPB TransitSubsidy Program!</p>
+    <p>Thank you for your enrollment in the Transit Subsidy Program!</p>
 
     <p>You submitted a Transit Subsidy request on {{ transit.timestamp }} for ${{ transit.amount }} per month.</p>
 
@@ -149,6 +149,38 @@ def send_notification(user, transit):
     ctx = Context({'user':user,'transit':transit})
 
     # send_mail('Transit Subsidy Request Confirmation', message.render(ctx), sender, [user.email])
+    
+    subject, from_email, to = _subject, _sender, user.email
+    text_content = message.render(ctx)
+    html_content = message.render(ctx)
+    e = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    e.attach_alternative(html_content, "text/html")
+    e.content_subtype = "html"
+    e.send()
+
+
+def send_withdrawl_notification(user):
+    """
+    Sends an email notification to the person who requested to be withdrawn from the program.
+    
+    @param user:  the person who requested the subsidy
+    """
+    _sender = SENDER
+    _subject = 'Transit Subsidy Program: Thank You for Beginning Your Enrollment'
+    message = Template("""
+    <style>html,p{font-family: arial, helvetica}</style>
+
+    <p>Dear {{user.first_name}},</p>
+
+    <p>You have been withdrawn from the Transit Subsidy Program on {{ transit.timestamp }}.</p>
+
+    <p>This will be reflected in the next cycle.  Also, if you need to re-enroll, please visit 
+    the enrollment application again.
+    </p>
+
+    """)
+
+    ctx = Context({'user':user})
     
     subject, from_email, to = _subject, _sender, user.email
     text_content = message.render(ctx)
@@ -168,6 +200,7 @@ def cancel(request):
         transit = TransitSubsidy.objects.get(user=request.user)
         transit.date_withdrawn = datetime.now()
         transit.save()
+        send_withdrawl_notification(request.user)
         return render_to_response('transit_subsidy/cancel.html', { 'user' : request.user, 'transit': transit},
                                                                     RequestContext(request) )
         
