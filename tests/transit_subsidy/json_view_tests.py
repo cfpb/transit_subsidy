@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from transit_subsidy.models import TransitSubsidy,Mode,OfficeLocation
 import StringIO
 import csv
-# from front.models import App,Person
 import json as simplejson
 
 

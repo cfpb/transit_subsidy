@@ -176,7 +176,10 @@ class TransportationSubsidyViewTest(TestCase):
         self.assertTemplateUsed(response,'transit_subsidy/cancel.html')
         logger.info( response.context['transit'].date_withdrawn )
 
-                   
+ 
+    def test_transit_subsidy_withdrawl_GET_Request_is_rejected(self):
+        with self.assertRaises(Exception):
+            response = self.client.get('/transit/cancel')
 
 
     #Util method
