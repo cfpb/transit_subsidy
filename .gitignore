@@ -1,8 +1,6 @@
 *.pyc
 *.swp
-local_settings.py
 tests/.coverage
 tests/nosetests.xml
 *.tmproj
-sqlite_db/*
 bill*
