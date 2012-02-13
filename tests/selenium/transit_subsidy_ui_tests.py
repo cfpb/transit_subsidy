@@ -32,7 +32,7 @@ def teardown_module(module):
 
 
 def first():
-    pass
+    time.sleep(1)
 
 def last():
     driver.get(base_url + "/logout")

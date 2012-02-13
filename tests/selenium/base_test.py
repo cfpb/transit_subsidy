@@ -180,7 +180,7 @@ def new_driver():
     _driver = webdriver.Remote( 
             command_executor=os.environ['selenium_hub'],
             desired_capabilities=_capabilities )
-    _driver.implicitly_wait(2)
+    _driver.implicitly_wait(5)
     return  _driver
 
 
