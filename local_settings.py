@@ -55,7 +55,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Where Django Test finds fixture data
 FIXTURE_DIRS = (
-  '/home/billy/webapps/transit_subsidy_os/tests/fixtures',
+  '/Users/sheltonb/webapps/transit_subsidy_os/tests/fixtures',
 )
 
 INSTALLED_APPS += ('django_nose','tests',)
@@ -109,8 +109,11 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #'/var/www/django/intra/templates/',
-    '/home/billy/webapps/transit_subsidy_os/templates',
+    '/Users/sheltonb/webapps/transit_subsidy_os/templates',
 )
+
+
+
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25

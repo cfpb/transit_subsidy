@@ -244,3 +244,176 @@ def dump_csv(request):
 
 
 
+
+@login_required
+def approval_json(request):
+    # return HttpResponse('asdasd')
+    # Distribution buckets, need to compute
+    # TranBen , Smartrip, Regional, Other, TRANServe
+    res = u''
+    json = { 'page':0, 'total': 0 , 'records': 0, 'rows': [] }
+    modes  = TransitSubsidyModes.objects.all()
+
+    #res +=   unicode( Mode.objects.values('distribution_method') )
+    res += '\n\n'
+    
+    for trans in TransitSubsidy.objects.all():
+        _tran_info = {}
+        
+        ts_modes = TransitSubsidyModes.objects.filter( transit_subsidy=trans )
+        _tran_info['id'] = unicode(trans.user_id)
+        _tran_info['username'] = unicode(trans.user.username) 
+        _tran_info['first_name'] = unicode(trans.user.first_name)
+        _tran_info['last_name'] = unicode(trans.user.last_name)
+        _tran_info['name'] = '%s, %s' % (unicode(trans.user.last_name),unicode(trans.user.first_name))
+        _tran_info['email'] = unicode(trans.user.email)
+        _tran_info['total_amount'] =  unicode(trans.amount)
+        _tran_info['last_four_ssn'] =  unicode(trans.last_four_ssn)
+        _tran_info['date_enrolled'] =  unicode(trans.date_enrolled)
+        _tran_info['timestamp'] =  unicode(trans.timestamp) 
+        _tran_info['origin_street'] =  unicode(trans.origin_street)
+        _tran_info['origin_city'] =  unicode(trans.origin_city.encode('ascii','ignore') ) 
+        _tran_info['origin_state'] =  unicode(trans.origin_state)
+        _tran_info['origin_zip'] =  unicode(trans.origin_zip)
+        _tran_info['origin_address'] = '%s %s, %s %s' % (_tran_info['origin_street'],_tran_info['origin_city'],_tran_info['origin_state'],_tran_info['origin_zip'])
+        _tran_info['destination'] =  unicode(trans.destination)
+        _tran_info['workdays'] =  unicode(trans.number_of_workdays)
+        _tran_info['daily+roundtrip_cost'] =  unicode(trans.daily_roundtrip_cost)
+        _tran_info['daily_parking_cost'] =  unicode(trans.daily_parking_cost)
+        _tran_info['smartrip_id'] =  unicode(trans.dc_wmta_smartrip_id)
+        _tran_info['approved_by'] =  unicode(trans.approved_by)
+        _tran_info['approved_on'] =  unicode(trans.approved_on)
+        _tran_info['modes'] = [ (mode) for mode in modes.filter(transit_subsidy=trans) ]
+        json['rows'].append(_tran_info)        
+    return JsonResponse( json )
+    # return HttpResponse( res , mimetype='text/plain')
+
+
+
+
+
+def approve_transit(request):
+    """
+    Performs ajaxy approval of a transit subsidy
+    """
+
+    #use request.user as signatore
+    #fetch transit based on request.
+    # uid = request.GET['user']
+    # print uid
+    #user = User.objects.get()
+    # tran = TransitSubsidy.objects.filter(  )
+    json = { 'approver':'Aprrover Name','approved_on':'2012-02-14 11:09 AM' }
+    return JsonResponse( json )
+    # return HttpResponse(uid)
+
+
+
+
+
+#Below is eexperimental stuff
+
+
+
+#Dump of raw JSON data. This should populate a form and allow Alex to check off as approved
+def __approval_json(request):
+    #Look at request.user for allowable staff
+    staff = ( 'sheltonw@DO.TREAS.GOV' )
+    #search staff for valid user
+    if (False):
+        return HttpResponse('[error]') 
+
+    import itertools
+    
+
+    modes  = TransitSubsidyModes.objects.all()
+    transits  = TransitSubsidy.objects.all()
+    people = Person.objects.all()
+    #, [ (mode) for mode in modes.filter(transit_subsidy_id=tran.user_id))
+    
+
+    bennies = [  (tran, tran.user, people.filter(user=tran.user)[0] ) for tran in transits ]
+    chain =  itertools.chain(bennies)
+    json = { 'page':'1', 'total':len(bennies), 'records': len(bennies), 'rows': list(chain) }
+    # bennies = [  ( tran, tran.user, people.filter(user=tran.user)[0], [ (mode) for mode in modes.filter(transit_subsidy_id=tran.user_id) ] ) for tran in transits ]
+    #bennies = [  { 'transit': tran, 'user':tran.user, 'user_profile':people.filter(user=tran.user)[0], 'modes':[ (mode) for mode in modes.filter(transit_subsidy_id=tran.user_id) ] } for tran in transits ]
+    
+    #chain =  itertools.chain(people)
+    #import pdb;pdb.set_trace()
+    
+    return JsonResponse( json )
+
+
+def approve_cool(request):
+    # Distribution buckets, need to compute
+    # TranBen , Smartrip, Regional, Other, TRANServe
+    trans  = TransitSubsidy.objects.all()
+    users  = User.objects.all()
+    modes  = TransitSubsidyModes.objects.all()
+
+    results = [ (user, user.transitsubsidy_set) for user in users ]
+
+    approval = [ request.user.email, datetime.now() ]
+    return JsonResponse( approval )
+
+def approve(request):
+    return render_to_response('transit_subsidy/approve.html',{},RequestContext(request))
+
+
+@login_required
+def old_approval_json(request):
+    # Distribution buckets, need to compute
+    # TranBen , Smartrip, Regional, Other, TRANServe
+    res = u''
+    json = { 'page': '0', 'total': '0' , 'records': '0', 'rows': [] }
+    modes  = TransitSubsidyModes.objects.all()
+
+    for trans in TransitSubsidy.objects.all():
+        _tran_info = {}
+        
+        ts_modes = TransitSubsidyModes.objects.filter( transit_subsidy=trans )
+        _tran_info['id'] = unicode(trans.user_id)
+        _tran_info['username'] =  unicode(trans.user.username) 
+        _tran_info['name'] = unicode(trans.user.last_name) +  ', ' + unicode(trans.user.first_name)
+        _tran_info['total_commute_cost'] = unicode(trans.total_commute_cost)
+        _tran_info['email'] = unicode(trans.user.email)
+        _tran_info['total_amount'] =  unicode(trans.amount)
+        _tran_info['last_four_ssn'] =  unicode(trans.last_four_ssn)
+        _tran_info['date_enrolled'] =  unicode(trans.date_enrolled)
+        _tran_info['timestamp'] =  unicode(trans.timestamp) 
+        _tran_info['origin_address'] = unicode(trans.origin_street) + ' ' + unicode(trans.origin_city.encode('ascii','ignore') ) + ', ' +  unicode(trans.origin_state) + ' ' + unicode(trans.origin_zip) 
+        _tran_info['destination'] =  unicode(trans.destination)
+        _tran_info['workdays'] =  unicode(trans.number_of_workdays)
+        _tran_info['daily_roundtrip_cost'] =  unicode(trans.daily_roundtrip_cost)
+        _tran_info['daily_parking_cost'] =  unicode(trans.daily_parking_cost)
+        _tran_info['smartrip_id'] =  unicode(trans.dc_wmta_smartrip_id)
+        _tran_info['approved_by'] =  unicode(trans.approved_by)
+        _tran_info['approved_on'] =  unicode(trans.approved_on)
+        _tran_info['modes'] =   ts_modes  #[ (mode) for mode in modes.filter(id=trans.user_id) ]
+        json['rows'].append(_tran_info)        
+    return JsonResponse( json )
+
+
+
+
+
+
+#Dump of raw JSON data. This should populate a form and allow Alex to check off as approved
+def approval_json_comp(request):
+    #Look at request.user for allowable staff
+    staff = ( 'sheltonw@DO.TREAS.GOV' )
+    #search staff for valid user
+    if (False):
+        return HttpResponse('[error]') 
+
+    modes  = TransitSubsidyModes.objects.all()
+    transits  = TransitSubsidy.objects.all()
+    people = Person.objects.all()
+    # bennies = [  ( tran, tran.user, people.filter(user=tran.user)[0], [ (mode) for mode in modes.filter(transit_subsidy_id=tran.user_id) ] ) for tran in transits ]
+    bennies = [  { 'transit': tran, 'user':tran.user, 'user_profile':people.filter(user=tran.user)[0], 'modes':[ (mode) for mode in modes.filter(transit_subsidy=tran) ] } for tran in transits ]
+    
+    #chain =  itertools.chain(people)
+    #import pdb;pdb.set_trace()
+    
+    return JsonResponse( bennies )
+
