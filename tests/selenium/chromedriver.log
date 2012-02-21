@@ -1,0 +1,450 @@
+[1329391039331][INFO]:    ChromeDriver 18.0.995.0
+[1329391039827][FINE]:    Initializing session with capabilities {
+   "acceptSslCerts": false,
+   "applicationCacheEnabled": false,
+   "browserConnectionEnabled": true,
+   "browserName": "chrome",
+   "chrome.nativeEvents": false,
+   "cssSelectorsEnabled": true,
+   "databaseEnabled": false,
+   "handlesAlerts": true,
+   "javascriptEnabled": true,
+   "locationContextEnabled": false,
+   "nativeEvents": true,
+   "platform": "ANY",
+   "rotatable": false,
+   "takesScreenshot": true,
+   "webStorageEnabled": false
+}
+
+[1329391039827][INFO]:    Launching chrome: /opt/google/chrome/google-chrome --disable-hang-monitor --disable-prompt-on-repost --dom-automation --full-memory-crash-report --no-default-browser-check --no-first-run --homepage=about:blank
+[1329391040158][INFO]:    Connected to Chrome successfully. Version: 17.0.963.38
+[1329391040221][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b)
+[1329391040221][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+      "acceptSslCerts": false,
+      "applicationCacheEnabled": false,
+      "browserConnectionEnabled": false,
+      "browserName": "chrome",
+      "chrome.chromedriverVersion": "18.0.995.0",
+      "chrome.nativeEvents": false,
+      "cssSelectorsEnabled": true,
+      "databaseEnabled": false,
+      "handlesAlerts": true,
+      "javascriptEnabled": true,
+      "locationContextEnabled": false,
+      "nativeEvents": true,
+      "platform": "linux",
+      "rotatable": false,
+      "takesScreenshot": true,
+      "version": "17.0.963.38",
+      "webStorageEnabled": false
+   }
+}
+
+[1329391040265][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/timeouts/implicit_wait) with params {
+   "ms": 5000
+}
+
+[1329391040265][FINER]:   Waiting for all views to stop loading...
+[1329391040266][FINER]:   Done waiting for all views to stop loading
+[1329391040266][FINER]:   Waiting for all views to stop loading...
+[1329391040266][FINER]:   Done waiting for all views to stop loading
+[1329391040266][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/timeouts/implicit_wait) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391041318][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391041318][FINER]:   Waiting for all views to stop loading...
+[1329391041319][FINER]:   Done waiting for all views to stop loading
+[1329391041448][FINER]:   Waiting for all views to stop loading...
+[1329391041522][FINER]:   Done waiting for all views to stop loading
+[1329391041522][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391041528][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391041528][FINER]:   Waiting for all views to stop loading...
+[1329391041528][FINER]:   Done waiting for all views to stop loading
+[1329391041601][FINER]:   Waiting for all views to stop loading...
+[1329391041601][FINER]:   Done waiting for all views to stop loading
+[1329391041601][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391041651][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391041651][FINER]:   Waiting for all views to stop loading...
+[1329391041652][FINER]:   Done waiting for all views to stop loading
+[1329391041753][FINER]:   Waiting for all views to stop loading...
+[1329391041846][FINER]:   Done waiting for all views to stop loading
+[1329391041846][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391041891][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391041891][FINER]:   Waiting for all views to stop loading...
+[1329391041895][FINER]:   Done waiting for all views to stop loading
+[1329391041936][FINER]:   Waiting for all views to stop loading...
+[1329391042038][FINER]:   Done waiting for all views to stop loading
+[1329391042038][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391042088][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391042088][FINER]:   Waiting for all views to stop loading...
+[1329391042089][FINER]:   Done waiting for all views to stop loading
+[1329391042091][FINER]:   Waiting for all views to stop loading...
+[1329391042091][FINER]:   Done waiting for all views to stop loading
+[1329391042091][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391043147][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391043147][FINER]:   Waiting for all views to stop loading...
+[1329391043148][FINER]:   Done waiting for all views to stop loading
+[1329391043198][FINER]:   Waiting for all views to stop loading...
+[1329391043291][FINER]:   Done waiting for all views to stop loading
+[1329391043291][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391044304][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391044304][FINER]:   Waiting for all views to stop loading...
+[1329391044305][FINER]:   Done waiting for all views to stop loading
+[1329391044350][FINER]:   Waiting for all views to stop loading...
+[1329391044456][FINER]:   Done waiting for all views to stop loading
+[1329391044456][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391044461][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391044461][FINER]:   Waiting for all views to stop loading...
+[1329391044497][FINER]:   Done waiting for all views to stop loading
+[1329391044500][FINER]:   Waiting for all views to stop loading...
+[1329391044500][FINER]:   Done waiting for all views to stop loading
+[1329391044500][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391044541][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391044541][FINER]:   Waiting for all views to stop loading...
+[1329391044541][FINER]:   Done waiting for all views to stop loading
+[1329391044582][FINER]:   Waiting for all views to stop loading...
+[1329391044719][FINER]:   Done waiting for all views to stop loading
+[1329391044719][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391045767][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391045767][FINER]:   Waiting for all views to stop loading...
+[1329391045768][FINER]:   Done waiting for all views to stop loading
+[1329391045801][FINER]:   Waiting for all views to stop loading...
+[1329391045939][FINER]:   Done waiting for all views to stop loading
+[1329391045939][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391045944][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391045944][FINER]:   Waiting for all views to stop loading...
+[1329391045972][FINER]:   Done waiting for all views to stop loading
+[1329391046012][FINER]:   Waiting for all views to stop loading...
+[1329391046013][FINER]:   Done waiting for all views to stop loading
+[1329391046013][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391046060][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391046060][FINER]:   Waiting for all views to stop loading...
+[1329391046061][FINER]:   Done waiting for all views to stop loading
+[1329391046114][FINER]:   Waiting for all views to stop loading...
+[1329391046185][FINER]:   Done waiting for all views to stop loading
+[1329391046185][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391047225][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391047225][FINER]:   Waiting for all views to stop loading...
+[1329391047226][FINER]:   Done waiting for all views to stop loading
+[1329391047278][FINER]:   Waiting for all views to stop loading...
+[1329391047368][FINER]:   Done waiting for all views to stop loading
+[1329391047368][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391047373][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391047373][FINER]:   Waiting for all views to stop loading...
+[1329391047394][FINER]:   Done waiting for all views to stop loading
+[1329391047474][FINER]:   Waiting for all views to stop loading...
+[1329391047475][FINER]:   Done waiting for all views to stop loading
+[1329391047475][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391047530][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391047530][FINER]:   Waiting for all views to stop loading...
+[1329391047531][FINER]:   Done waiting for all views to stop loading
+[1329391047582][FINER]:   Waiting for all views to stop loading...
+[1329391047669][FINER]:   Done waiting for all views to stop loading
+[1329391047669][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391047711][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391047711][FINER]:   Waiting for all views to stop loading...
+[1329391047718][FINER]:   Done waiting for all views to stop loading
+[1329391047811][FINER]:   Waiting for all views to stop loading...
+[1329391047876][FINER]:   Done waiting for all views to stop loading
+[1329391047876][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391047918][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391047918][FINER]:   Waiting for all views to stop loading...
+[1329391047919][FINER]:   Done waiting for all views to stop loading
+[1329391047921][FINER]:   Waiting for all views to stop loading...
+[1329391047921][FINER]:   Done waiting for all views to stop loading
+[1329391047921][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391048968][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391048968][FINER]:   Waiting for all views to stop loading...
+[1329391048969][FINER]:   Done waiting for all views to stop loading
+[1329391049011][FINER]:   Waiting for all views to stop loading...
+[1329391049106][FINER]:   Done waiting for all views to stop loading
+[1329391049106][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391049114][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391049114][FINER]:   Waiting for all views to stop loading...
+[1329391049139][FINER]:   Done waiting for all views to stop loading
+[1329391049179][FINER]:   Waiting for all views to stop loading...
+[1329391049271][FINER]:   Done waiting for all views to stop loading
+[1329391049271][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391049319][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391049319][FINER]:   Waiting for all views to stop loading...
+[1329391049319][FINER]:   Done waiting for all views to stop loading
+[1329391049323][FINER]:   Waiting for all views to stop loading...
+[1329391049323][FINER]:   Done waiting for all views to stop loading
+[1329391049323][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391050369][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391050369][FINER]:   Waiting for all views to stop loading...
+[1329391050370][FINER]:   Done waiting for all views to stop loading
+[1329391050421][FINER]:   Waiting for all views to stop loading...
+[1329391050498][FINER]:   Done waiting for all views to stop loading
+[1329391050499][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391051511][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391051511][FINER]:   Waiting for all views to stop loading...
+[1329391051512][FINER]:   Done waiting for all views to stop loading
+[1329391051562][FINER]:   Waiting for all views to stop loading...
+[1329391051681][FINER]:   Done waiting for all views to stop loading
+[1329391051681][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391051689][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391051689][FINER]:   Waiting for all views to stop loading...
+[1329391051727][FINER]:   Done waiting for all views to stop loading
+[1329391051743][FINER]:   Waiting for all views to stop loading...
+[1329391051743][FINER]:   Done waiting for all views to stop loading
+[1329391051743][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391051782][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391051782][FINER]:   Waiting for all views to stop loading...
+[1329391051782][FINER]:   Done waiting for all views to stop loading
+[1329391051850][FINER]:   Waiting for all views to stop loading...
+[1329391051924][FINER]:   Done waiting for all views to stop loading
+[1329391051924][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391052976][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/login/"
+}
+
+[1329391052976][FINER]:   Waiting for all views to stop loading...
+[1329391052977][FINER]:   Done waiting for all views to stop loading
+[1329391053052][FINER]:   Waiting for all views to stop loading...
+[1329391053153][FINER]:   Done waiting for all views to stop loading
+[1329391053153][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391053159][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/title)
+[1329391053159][FINER]:   Waiting for all views to stop loading...
+[1329391053196][FINER]:   Done waiting for all views to stop loading
+[1329391053219][FINER]:   Waiting for all views to stop loading...
+[1329391053220][FINER]:   Done waiting for all views to stop loading
+[1329391053220][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/title) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": "http://localhost:8000/login/ is not a..."
+}
+
+[1329391053259][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b/url) with params {
+   "url": "http://localhost:8000/logout"
+}
+
+[1329391053259][FINER]:   Waiting for all views to stop loading...
+[1329391053260][FINER]:   Done waiting for all views to stop loading
+[1329391053314][FINER]:   Waiting for all views to stop loading...
+[1329391053460][FINER]:   Done waiting for all views to stop loading
+[1329391053460][FINE]:    Command finished (/session/ab9a30368d00a46c9253539278cb562b/url) with response {
+   "sessionId": "ab9a30368d00a46c9253539278cb562b",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1329391053499][FINE]:    Command received (/session/ab9a30368d00a46c9253539278cb562b)
