@@ -43,6 +43,26 @@ class TransportationSubsidyViewTest(TestCase):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
 
+    def test_transit_subsidy_withdrawl_date_should_be_None_on_re_enrollments(self):
+        pd = self.get_good_post_data()
+        pd.update( self.get_good_segment_data() )
+        response = self.client.post('/transit/', pd)
+        response = self.client.post('/transit/cancel')
+        response = self.client.post('/transit/', pd)
+        self.assertTrue( response.context['transit'].date_withdrawn == None, "Withdrawl date should be reset when re-enrolling")
+        
+
+
+    def test_transit_subsidy_withdrawl(self):
+        pd = self.get_good_post_data()
+        pd.update( self.get_good_segment_data() )
+        response = self.client.post('/transit/', pd)
+        response = self.client.post('/transit/cancel')
+        self.assertTrue( response.context['transit'].date_withdrawn != None)
+        self.assertTemplateUsed(response,'transit_subsidy/cancel.html')
+        self.assertTrue( response.context['transit'].date_withdrawn != None)
+
+
     def test_enrollment_notification_email(self):
         transit = self._set_transit_subsidy()
         transit_subsidy.views.send_enrollment_notification(self.user,transit)
@@ -165,16 +185,6 @@ class TransportationSubsidyViewTest(TestCase):
         response = self.client.post('/transit/', pd)
         #print response
         self.assertTemplateUsed(response,'transit_subsidy/thank_you.html')
-
-    
-    def test_transit_subsidy_withdrawl(self):
-        pd = self.get_good_post_data()
-        pd.update( self.get_good_segment_data() )
-        response = self.client.post('/transit/', pd)
-        response = self.client.post('/transit/cancel')
-        self.assertTrue( response.context['transit'].date_withdrawn != None)
-        self.assertTemplateUsed(response,'transit_subsidy/cancel.html')
-        logger.info( response.context['transit'].date_withdrawn )
 
  
     def test_transit_subsidy_withdrawl_GET_Request_is_rejected(self):

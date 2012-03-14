@@ -39,7 +39,7 @@ $.validator.addMethod("smartrip_id", function(value, element) {
    var smartrips = $.map( segment_data, function(item){
      if (item['distribution_method'] == 'Smartrip') return item['id'];
    });
-   console.log(smartrips);
+   // console.log(smartrips);
    $('.seg').each( function(i,element){
       smart_id =  parseInt( $(element).val() );//element[element.selectedIndex].value;
       _index = $.inArray(smart_id, smartrips)

@@ -107,7 +107,9 @@ class TransitSubsidy(models.Model):
     """ The amount being distributed """ 
     amount = models.DecimalField(decimal_places=2,max_digits=5)
     dc_wmta_smartrip_id = models.CharField( max_length=56, blank=True, null=True)
-    
+
+    approved_on = models.DateTimeField(null=True,blank=True)
+    approved_by = models.CharField(max_length=56,null=True,blank=True)
 
     def __unicode__(self):
         return u'%s %s <%s>' % (self.user.last_name, self.user.first_name, self.user.username)

@@ -1,0 +1,165 @@
+{% extends "transit_subsidy/base.html" %}
+
+	{% block "title" %}Transit Subsidy Approvals{% endblock %}
+	
+	{% block "page_css" %}
+
+    <link type="text/css" href="{{STATIC_URL}}css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/colorbox.css" rel="stylesheet" />
+    <link type="text/css" href="{{STATIC_URL}}css/transit_subsidy.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{STATIC_URL}}jquery.jqGrid-4.2.0/css/ui.jqgrid.css" />
+	
+	<!-- Position the inField labels so it works with IE -->
+	<!--[if gte IE 7]>
+	<style>
+	form span label {
+	    top: .5em;
+	}
+	
+	.button {
+		padding-left: 1em;
+		padding-right: 1em;
+		border: 1px
+	}
+	
+	</style>
+	
+	<![endif]--> 
+	
+
+	{% endblock %}
+	
+	{% block "page_js" %}
+    
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script src="{{STATIC_URL}}jquery.jqGrid-4.2.0/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}jquery.jqGrid-4.2.0/js/jquery.jqGrid.src.js"></script>
+
+
+    <script>
+
+    $().ready(function(){
+    
+    $('#main').css( 'position', 'absolute' );
+    $('#main').css( 'left', '40px' );
+    
+    $("#list2").jqGrid({
+		   	url:'/transit/json',
+		   	mtype: 'GET',
+			datatype: "json",
+			width: 'auto',
+		   	colNames:['Name', 'Email', 'From', 'To',
+		   			  'Updated', 'Total','Allowance', 
+		   			  'Days', 'RT Cost', 'Smartrip', 'Approved By', 'Approved On', 'Approve'], 
+		   	colModel:[
+		   		
+		   		//{name:'username', hidden:true},
+		   		{name:'name',width:'94'},
+		   		{name:'email',width:'94'},
+		   		{name:'origin_address', width:'128' },
+		        {name:'destination', width:'128' },
+		   		//{name:'date_enrolled', width:'64', formatter:'date', formatoptions: {newformat:'m/d/Y'} },
+		        
+		        {name:'timestamp',  width:'64', formatter:'date', formatoptions: {newformat:'m/d/Y'}},
+		   		{name:'total_commute_cost', width:'64', formatter:'currency', formatoptions:{ decimalPlaces: 2, prefix: "$ "} },
+		   		{name:'total_amount', width:'64', formatter:'currency', formatoptions:{ decimalPlaces: 2, prefix: "$ "} },
+		        
+		        {name:'workdays', width:'32'},
+		        {name:'daily_roundtrip_cost', width:'64', formatter:'currency', formatoptions:{ decimalPlaces: 2, prefix: "$ "} },
+		        // {name:'daily_parking_cost'] =  unicode(trans.daily_parking_cost)
+		        {name:'smartrip_id'},
+		        {name:'approved_by'},
+		        {name:'approved_on'},
+		        {name: 'approve', width:'64'},
+		        
+	
+		   	],
+		   	rowNum:10,
+		   	// rowList:[10,20,30],
+		   	pager: '#pager2',
+		   	sortname: 'timestampe',
+		    viewrecords: true,
+		    sortorder: "desc",
+		    caption:"Transit Subsidy Data",
+		    repeatitems: false,
+		    jsonReader: {	 
+		    	id: 		"id", 
+		    	root: 		"rows",  //the name of the collection of row data ( transits? )
+      			page: 		"page", //current page
+      			total: 		"total", //total pages
+      			records: 	"records", //total numbe of rows,
+      			repeatitems: false,
+		    },
+		    gridComplete: function() {
+		    	 	
+        			var grid = jQuery("#list2");
+        			var ids = grid.jqGrid('getDataIDs');
+        			for (var i = 0; i < ids.length; i++) {
+            			var rowId = ids[i];
+            			var e = grid.jqGrid('getCell', rowId, 'email');
+            			var data = [rowId,e]
+                     	var ok = '<input class="grid_button" type="button" value="Approve" onclick="approve(\'' + data + '\')">'
+            			// onclick=\"alert(\'" + e + "\');\" />";
+
+
+            		grid.setRowData( rowId, {approve: ok} );
+            		//grid.jqGrid('setRowData', rowId, { action: checkOut });
+        			// console.log(data)
+        			}
+    		},
+		});
+
+		$("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
+			
+    	
+
+    	approve = function(data){
+    		var a_data = data.split(',');
+    		var _user = data.split(',')[1];
+    		var _row = data.split(',')[0];
+    		//console.log( a_data );
+    		var grid = jQuery("#list2");
+    		//do ajax call and then update the cell
+    		var approver = '';
+    		var stamp = '';
+
+    		$.ajax({
+    			url: '/transit/approve_transit',
+    			data: { 'user': _user },
+    			success: function(d){
+    				console.log(d.approver)
+    				grid.setCell( _row, 'approved_by', d.approver );
+    				grid.setCell( _row, 'approved_on', d.approved_on );
+    			},
+
+    		});
+
+    	};
+
+
+
+
+    ///
+    });
+
+
+
+    </script>
+    
+    {% endblock %}
+
+
+{% block "header" %}
+<h1 align="center" style="position:relative;top:-24px;color:green">Transit Subsidy Approval</h1>
+{% endblock %}
+
+
+{% block "content" %}
+ 
+  <table id="list2"></table>
+  <div id="pager2"></div>
+
+
+{% endblock %}
+

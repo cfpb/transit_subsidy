@@ -103,8 +103,9 @@ class TransitSubsidyApp():
     
 
     def enroll(self):
-        self.driver.find_element_by_id("btn_enroll_smartrip").click()
         time.sleep(.5)
+        self.driver.find_element_by_id("btn_enroll_smartrip").click()
+        time.sleep(1)
 
     
     def sign(self, last_four_ssn='1234', signature='Mick Jagger'):    
@@ -133,9 +134,9 @@ class TransitSubsidyApp():
         #In theaory, this should work, too: self.driver.find_element_by_id("cboxClose").click()
 
         
-        #OK - now let's cancel
-        self.driver.find_element_by_link_text('Cancel my enrollment.').click()
-        time.sleep(1)
+        #OK - now let'
+        self.driver.find_element_by_partial_link_text('Cancel my enrollment').click()
+        time.sleep(.5)
         self.driver.find_element_by_id("btn_withdraw_agree").click()
         eq_("Your Intranet > Transit Subsidy Withdrawl Confirmation", self.driver.title)
 
