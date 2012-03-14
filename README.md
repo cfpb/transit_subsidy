@@ -1,5 +1,5 @@
 # CFPB Labs - Transit Subsidy web application
-
+<img src="/sheltonw/transit_subsidy_os/raw/master/transit_subsidy/static/images/screen_shot.png">
 
 ## Dependencies
  - [[nose test | http://readthedocs.org/docs/nose/en/latest/ ]]
