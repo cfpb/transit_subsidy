@@ -2,8 +2,8 @@
 <img src="/sheltonw/transit_subsidy_os/raw/master/transit_subsidy/static/images/screen_shot.png">
 
 ## Dependencies
- - [[nose test | http://readthedocs.org/docs/nose/en/latest/ ]]
- - [[django-nose | https://github.com/jbalogh/django-nose]]
+ - [[nose test|http://readthedocs.org/docs/nose/en/latest/]]
+ - [[django-nose|https://github.com/jbalogh/django-nose]]
 
 
 ## Installation
@@ -11,7 +11,7 @@
  - Edit ```local_settings.py``` and edit the ```APP_ROOT``` property at the top of the
    file so that it matches your installation path.
  - Run ```$./manage.py runserver```
- - Open a web browser to http://localhost:8000/
+ - Open a web browser to  [http://localhost:8000/|http://localhost:8000/]
  - Log in using ted/ted for username and password
 
 
