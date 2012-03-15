@@ -13,6 +13,7 @@
  - Run ```$./manage.py runserver```
  - Open a web browser to  [http://localhost:8000/|http://localhost:8000/]
  - Log in using ted/ted for username and password
+ - Access the Django admin: log out and log in as admin/admin
 
 
 ## Configuration
