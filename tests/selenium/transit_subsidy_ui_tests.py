@@ -150,7 +150,7 @@ def test_iterate_Smartrip_segments():
     def exercise_option(id):
         transit.add_segment( segment_id='1', mode_id=id, amount='1', add_another=False )
         transit.enroll()
-        is_textpresent(driver,'Enter your Smartip card number')
+        is_textpresent(driver,'Enter your Smartrip card number')
         
     for id in smartrips:
         transit.reset()
