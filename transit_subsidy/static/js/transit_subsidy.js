@@ -35,7 +35,7 @@ $.validator.addMethod("smartrip_id", function(value, element) {
    if( value.length >= 9 ) return true;
    _retval = true;
 
-   //generate a list of Smartip ids
+   //generate a list of Smartrip ids
    var smartrips = $.map( segment_data, function(item){
      if (item['distribution_method'] == 'Smartrip') return item['id'];
    });
@@ -49,7 +49,7 @@ $.validator.addMethod("smartrip_id", function(value, element) {
       } 
    });
    return _retval;
- }, "Enter your Smartip card number.");
+ }, "Enter your Smartrip card number.");
 
 
 
