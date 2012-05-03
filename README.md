@@ -1,13 +1,13 @@
 # CFPB Labs - Transit Subsidy web application
-<img src="/sheltonw/transit_subsidy_os/raw/master/transit_subsidy/static/images/screen_shot.png">
+<img src="transit_subsidy/raw/master/transit_subsidy/static/images/screen_shot.png">
 
 ## Dependencies
- - [[nose test | http://readthedocs.org/docs/nose/en/latest/ ]]
- - [[django-nose | https://github.com/jbalogh/django-nose ]]
+ - nose test - http://readthedocs.org/docs/nose/en/latest/
+ - django-nose - https://github.com/jbalogh/django-nose 
 
 
 ## Installation
- - Clone this repo ```$git clone git://github.cfpb.gov/CFPBLabs/transit_subsidy_os.git```
+ - Clone this repo ```$git clone https://github.com/cfpb/transit_subsidy```
  - Edit ```local_settings.py``` and edit the ```APP_ROOT``` property at the top of the
    file so that it matches your installation path.
  - Run ```$./manage.py runserver```
@@ -20,9 +20,7 @@
 
 ## Notes
  - Admin account info: username: admin, pwd: admin
- - Static assets!  edit colorbox.css and templates to point to STATIC_URL
- - edit email sender address.  Config?
- - Link to policy
+ - Static assets!  Edit colorbox.css and templates to point to STATIC_URL
 
 
 
