@@ -4,7 +4,11 @@ from django.contrib.staticfiles import views
 from settings import *
 from django.conf.urls.defaults import patterns, include, url
 
-#print sys.argv
+
+#Update this to match your installation location
+APP_ROOT = '/Users/sheltonb/webapps/transit_subsidy_os/'
+
+
 
 if 'test' in sys.argv:
     # if 'test' is part of the comman then use sqlite3, else use mysql
@@ -34,7 +38,6 @@ else:
     
 
 
-DEPLOYED = True
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -55,12 +58,10 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Where Django Test finds fixture data
 FIXTURE_DIRS = (
-  '/home/billy/webapps/transit_subsidy_os/tests/fixtures',
+  APP_ROOT + 'tests/fixtures',
 )
 
 INSTALLED_APPS += ('django_nose','tests',)
-# urlpatterns += ( url(r'^mobile/', 'mobile.views.index', ) )
-
 
 
 
@@ -96,7 +97,6 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #('ps', '/var/www/django/intra/ps/static')
-    #'/home/cfpb/william.shelton/webapps/collab/tests/coverage/',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -109,7 +109,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #'/var/www/django/intra/templates/',
-    '/home/billy/webapps/transit_subsidy_os/templates',
+    APP_ROOT + 'templates',
 )
 
 
